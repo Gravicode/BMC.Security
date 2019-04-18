@@ -49,7 +49,7 @@ namespace BMC.Security.Gateway
         }
         void SetupMqtt()
         {
-            string IPBrokerAddress = "23.98.70.88";//"110.35.82.86"; //ConfigurationManager.AppSettings["MqttHost"];
+            string IPBrokerAddress = "13.76.156.239";// "23.98.70.88";//"110.35.82.86"; //ConfigurationManager.AppSettings["MqttHost"];
             string ClientUser = "loradev_mqtt"; //ConfigurationManager.AppSettings["MqttUser"];
             string ClientPass = "test123";//ConfigurationManager.AppSettings["MqttPass"];
 

@@ -7,7 +7,7 @@ namespace BMC.Security.CCTV
     public class APPCONTANTS
     {
         //cognitive service
-        public const string MQTT_SERVER = "cloud.makestro.com"; //"cloud.makestro.com";
+        public const string MQTT_SERVER = "13.76.156.239";////"cloud.makestro.com"; //"cloud.makestro.com";
         public const string MQTT_USER = "mifmasterz";
         public const string MQTT_PASS = "123qweasd";
         public const string BING_API_KEY = "7cbea11a8b5344f08b2b5db408f91ed4";
