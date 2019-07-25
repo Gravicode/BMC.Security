@@ -22,6 +22,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using BMC.Security.Models;
 using System.Net;
+using System.Threading;
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
 namespace BMC.Security.Gateway
@@ -32,7 +33,10 @@ namespace BMC.Security.Gateway
     /// </summary>
     public sealed partial class MainPage : Page
     {
-
+        static string IPBrokerAddress = "110.35.82.86"; //ConfigurationManager.AppSettings["MqttHost"];azure - 13.76.156.239";// 
+        static string ClientUser = "loradev_mqtt"; //ConfigurationManager.AppSettings["MqttUser"];
+        static string ClientPass = "test123";//ConfigurationManager.AppSettings["MqttPass"];
+        static string clientId = "bmc-gateway-2";//Guid.NewGuid().ToString();
 
         private GIS.FEZHAT hat;
         private DispatcherTimer timer;
@@ -47,24 +51,38 @@ namespace BMC.Security.Gateway
         {
             MqttClient.Publish(DataTopic, Encoding.UTF8.GetBytes(Message), MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, false);
         }
-        void SetupMqtt()
+        async void SetupMqtt()
         {
-            string IPBrokerAddress = "110.35.82.86"; //ConfigurationManager.AppSettings["MqttHost"];azure - 13.76.156.239";// 
-            string ClientUser = "loradev_mqtt"; //ConfigurationManager.AppSettings["MqttUser"];
-            string ClientPass = "test123";//ConfigurationManager.AppSettings["MqttPass"];
-
             MqttClient = new MqttClient(IPBrokerAddress);
 
             // register a callback-function (we have to implement, see below) which is called by the library when a message was received
             MqttClient.Subscribe(new string[] { ControlTopic }, new byte[] { MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE });
             MqttClient.MqttMsgPublishReceived += client_MqttMsgPublishReceived;
+            var token = new CancellationToken();
+            await TryReconnectAsync(token);
+            //MqttClient.Connect(clientId, ClientUser, ClientPass);
+            
+        }
 
-            // use a unique id as client id, each time we start the application
-            var clientId = "bmc-gateway-2";//Guid.NewGuid().ToString();
-
-            MqttClient.Connect(clientId, ClientUser, ClientPass);
-            Console.WriteLine("MQTT is connected");
-        } // this code runs when a message was received
+        private async Task TryReconnectAsync(CancellationToken cancellationToken)
+        {
+            var connected = MqttClient.IsConnected;
+            while (!connected && !cancellationToken.IsCancellationRequested)
+            {
+                try
+                {
+                    MqttClient.Connect(clientId, ClientUser, ClientPass);
+                    Console.WriteLine("MQTT is connected");
+                }
+                catch
+                {
+                    Console.WriteLine( $"No connection to...{IPBrokerAddress}");
+                }
+                connected = MqttClient.IsConnected;
+                await Task.Delay(10000, cancellationToken);
+            }
+        }
+        // this code runs when a message was received
         async void client_MqttMsgPublishReceived(object sender, MqttMsgPublishEventArgs e)
         {
             string ReceivedMessage = Encoding.UTF8.GetString(e.Message);
@@ -183,6 +201,8 @@ namespace BMC.Security.Gateway
                 {
                     Setup();
                 }
+                var token = new CancellationToken();
+                await TryReconnectAsync(token);
             }
             catch
             {
