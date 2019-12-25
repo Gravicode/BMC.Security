@@ -23,6 +23,10 @@ using Newtonsoft.Json;
 using BMC.Security.Models;
 using System.Net;
 using System.Threading;
+using BMC.Security.Gateway.Helpers;
+using Windows.UI.Popups;
+using Windows.Networking.Connectivity;
+using System.Net.NetworkInformation;
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
 namespace BMC.Security.Gateway
@@ -37,51 +41,65 @@ namespace BMC.Security.Gateway
         static string ClientUser = "loradev_mqtt"; //ConfigurationManager.AppSettings["MqttUser"];
         static string ClientPass = "test123";//ConfigurationManager.AppSettings["MqttPass"];
         static string clientId = "bmc-gateway-2";//Guid.NewGuid().ToString();
-
+        static bool NeedToReconnect = false;
         private GIS.FEZHAT hat;
         private DispatcherTimer timer;
         bool IsConnected = false;
         static HttpClient client;
-        
+
         MqttClient MqttClient;
         const string DataTopic = "bmc/homeautomation/data";
         const string ControlTopic = "bmc/homeautomation/control";
-       
+
         public void PublishMessage(string Message)
         {
             MqttClient.Publish(DataTopic, Encoding.UTF8.GetBytes(Message), MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE, false);
         }
-        async void SetupMqtt()
+        async void SetupMqtt(bool restart = false)
         {
+            if (restart) MqttClient.Disconnect();
             MqttClient = new MqttClient(IPBrokerAddress);
 
             // register a callback-function (we have to implement, see below) which is called by the library when a message was received
             MqttClient.Subscribe(new string[] { ControlTopic }, new byte[] { MqttMsgBase.QOS_LEVEL_EXACTLY_ONCE });
             MqttClient.MqttMsgPublishReceived += client_MqttMsgPublishReceived;
-            var token = new CancellationToken();
-            await TryReconnectAsync(token);
-            //MqttClient.Connect(clientId, ClientUser, ClientPass);
-            
-        }
 
-        private async Task TryReconnectAsync(CancellationToken cancellationToken)
-        {
             var connected = MqttClient.IsConnected;
-            while (!connected && !cancellationToken.IsCancellationRequested)
+            //while (!connected && !cancellationToken.IsCancellationRequested)
+            //{
+            try
             {
-                try
+                MqttClient.Connect(clientId, ClientUser, ClientPass);
+                await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, async () =>
                 {
-                    MqttClient.Connect(clientId, ClientUser, ClientPass);
-                    Console.WriteLine("MQTT is connected");
-                }
-                catch
-                {
-                    Console.WriteLine( $"No connection to...{IPBrokerAddress}");
-                }
-                connected = MqttClient.IsConnected;
-                await Task.Delay(10000, cancellationToken);
+                    TxtStatus.Text = "MQTT is connected";
+                });
+                NeedToReconnect = false;
+                Console.WriteLine("MQTT is connected");
             }
+            catch
+            {
+                await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, async () =>
+                {
+                    TxtStatus.Text = $"Fail to connect MQTT at {IPBrokerAddress}";
+                });
+                Console.WriteLine($"No connection to...{IPBrokerAddress}");
+                NeedToReconnect = true;
+            }
+            connected = MqttClient.IsConnected;
+            //return connected;
+            //var token = new CancellationToken();
+            //await TryReconnectAsync(token);
+            //MqttClient.Connect(clientId, ClientUser, ClientPass);
+
         }
+        /*
+        private async Task<bool> TryReconnectAsync(CancellationToken cancellationToken)
+        {
+            
+            //await Task.Delay(10000, cancellationToken);
+            //}
+        }*/
         // this code runs when a message was received
         async void client_MqttMsgPublishReceived(object sender, MqttMsgPublishEventArgs e)
         {
@@ -95,10 +113,10 @@ namespace BMC.Security.Gateway
         public MainPage()
         {
             this.InitializeComponent();
-           
-            Setup();
 
-         
+            Setup();
+            SetupHandler();
+
         }
 
         /// <summary>
@@ -125,13 +143,46 @@ namespace BMC.Security.Gateway
             this.hat.D2.Color = SelColor;
             this.hat.D3.Color = SelColor;
         }
+        void SetupHandler()
+        {
+            BtnReconnect.Click += (a, b) =>
+            {
+                SetupMqtt(true);
+                //await TryReconnectAsync(CancellationToken.None);
+            };
+            BtnRestart.Click += (a, b) =>
+            {
+                Windows.System.ShutdownManager.BeginShutdown(Windows.System.ShutdownKind.Restart, TimeSpan.FromSeconds(1));
+            };
 
+            BtnLihat.Click += async (a, b) =>
+            {
+                if (string.IsNullOrEmpty(TxtKota.Text))
+                {
+                    // Create the message dialog and set its content
+                    var messageDialog = new MessageDialog("Isi nama kotanya, goblok");
+
+                    // Show the message dialog
+                    await messageDialog.ShowAsync();
+                    return;
+                }
+                var temps = await WeatherAPI.GetWeatherInfo(TxtKota.Text);
+                var data = from x in temps.list
+                           select new { day = Convert.ToDateTime(x.dt_txt), x.main.temp, x.main.temp_min, x.main.temp_max, x.main.humidity, x.main.pressure };
+                ListWeather.ItemsSource = data.ToList();
+            };
+            BtnPlay.Click += (a, b) => { PlaySound("monster.mp3"); };
+        }
         async void Setup()
         {
             try
             {
-                if (!IsConnected)
+                if (client == null)
                 {
+                    client = new HttpClient();
+                }
+
+                
                     /*
                     if (s_deviceClient != null)
                     {
@@ -143,74 +194,102 @@ namespace BMC.Security.Gateway
                     */
                     //SendDeviceToCloudMessagesAsync();
                     SetupMqtt();
-                    BtnPlay.Click += (a, b) => { PlaySound("monster.mp3"); };
+                   
+                    CheckInternet();
 
-                    this.hat = await GIS.FEZHAT.CreateAsync();
-
-                    this.hat.S1.SetLimits(500, 2400, 0, 180);
-                    this.hat.S2.SetLimits(500, 2400, 0, 180);
+                    TxtIpAddress.Text = GetLocalIp();
 
                     this.timer = new DispatcherTimer();
                     this.timer.Interval = TimeSpan.FromMilliseconds(10000); //10 minutes
                     this.timer.Tick += this.OnTick;
                     this.timer.Start();
 
-                    IsConnected = true;
-                }
-                if (client == null)
-                {
-                    client = new HttpClient();
-                }
+                    this.hat = await GIS.FEZHAT.CreateAsync();
+                    this.hat.S1.SetLimits(500, 2400, 0, 180);
+                    this.hat.S2.SetLimits(500, 2400, 0, 180);
+
+                   
+
+                   
+                
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex);
             }
+           
+            
+        }
+        private string GetLocalIp()
+        {
+            var icp = NetworkInformation.GetInternetConnectionProfile();
 
+            if (icp?.NetworkAdapter == null) return null;
+            var hostname =
+                NetworkInformation.GetHostNames()
+                    .SingleOrDefault(
+                        hn =>
+                            hn.IPInformation?.NetworkAdapter != null && hn.IPInformation.NetworkAdapter.NetworkAdapterId
+                            == icp.NetworkAdapter.NetworkAdapterId);
 
+            // the ip address
+            return hostname?.CanonicalName;
         }
 
-     
-
+        async void CheckInternet()
+        {
+            bool isInternetConnected = NetworkInterface.GetIsNetworkAvailable();
+            if(isInternetConnected==false && IsConnected)
+            {
+                NeedToReconnect = true;
+            }
+            IsConnected = isInternetConnected;
+            await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, async () =>
+            {
+                TxtInternetState.Text = isInternetConnected ? "On" : "Off";
+            });
+        }
         private async void OnTick(object sender, object e)
         {
             try
             {
+                CheckInternet();
+
+                double x, y, z;
+                this.hat.GetAcceleration(out x, out y, out z);
+                var light = this.hat.GetLightLevel();
+                var temp = this.hat.GetTemperature();
+                var item = new EnvData() { Accel = (x, y, z), Light = light, Temp = temp, LocalTime = DateTime.Now };
+
                 if (IsConnected)
                 {
-                    try
+                    SendDeviceToCloudMessagesAsync(item);
+                    if (NeedToReconnect)
                     {
-                        double x, y, z;
-
-                        this.hat.GetAcceleration(out x, out y, out z);
-                        var light = this.hat.GetLightLevel();
-                        var temp = this.hat.GetTemperature();
-                        var item = new EnvData() { Accel = (x, y, z), Light = light, Temp = temp, LocalTime = DateTime.Now };
-                        SendDeviceToCloudMessagesAsync(item);
-                        await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, async () =>
-                        {
-                            TxtLight.Text = light + " lux";
-                            TxtTemp.Text = temp + " C";
-                            TxtAccel.Text = x + "," + y + "," + z;
-                            TxtTimeUpdate.Text = DateTime.Now.ToString("dd/MMM/yyyy HH:mm:ss");
-                        });
+                        Setup();
                     }
-                    catch(Exception ex) { Console.WriteLine(ex); }
                 }
-                else
+                await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, async () =>
                 {
-                    Setup();
-                }
-                var token = new CancellationToken();
-                await TryReconnectAsync(token);
+                    TxtLight.Text = light + "";
+                    TxtTemp.Text = temp + "";
+                    TxtAccel.Text = x.ToString("n3") + "," + y.ToString("n3") + "," + z.ToString("n3");
+                    TxtTimeUpdate.Text = DateTime.Now.ToString("dd/MM/yy HH:mm:ss");
+                });
+                //var token = new CancellationToken();
+                //await TryReconnectAsync(token);
             }
-            catch
+            catch(Exception ex)
             {
-                IsConnected = false;
+                await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, async () =>
+                {
+                    TxtStatus.Text = "Timer Err :" + ex.Message;
+                });
+                //IsConnected = false;
             }
         }
 
-        
+
         // Handle the direct method call
         private async Task<string> DoAction(string Data)
         {
@@ -219,7 +298,7 @@ namespace BMC.Security.Gateway
             // Check the payload is a single integer value
             if (action != null)
             {
-              
+
                 switch (action.ActionName)
                 {
                     case "PlaySound":
@@ -311,7 +390,7 @@ namespace BMC.Security.Gateway
             }
         }
 
-       //private static DeviceClient s_deviceClient;
+        //private static DeviceClient s_deviceClient;
 
         // The device connection string to authenticate the device with your IoT hub.
         // Using the Azure CLI:
@@ -334,7 +413,7 @@ namespace BMC.Security.Gateway
             Console.WriteLine("{0} > Sending message: {1}", DateTime.Now, "ok");
 
         }*/
-        
+
         private void SendDeviceToCloudMessagesAsync(EnvData data)
         {
             var message = JsonConvert.SerializeObject(data);//Encoding.ASCII.GetBytes(
