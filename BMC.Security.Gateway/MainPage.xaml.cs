@@ -27,6 +27,7 @@ using BMC.Security.Gateway.Helpers;
 using Windows.UI.Popups;
 using Windows.Networking.Connectivity;
 using System.Net.NetworkInformation;
+using System.Drawing;
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
 namespace BMC.Security.Gateway
@@ -172,7 +173,29 @@ namespace BMC.Security.Gateway
                 ListWeather.ItemsSource = data.ToList();
             };
             BtnPlay.Click += (a, b) => { PlaySound("monster.mp3"); };
+            BtnD1.Click += ToggleLedClicked;
+            BtnD2.Click += ToggleLedClicked;
         }
+
+        private void ToggleLedClicked(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var btn = sender as Button;
+                var sel = btn.Tag.ToString();
+                if (sel == "D1")
+                    hat.D2.Color = LedColors[rnd.Next(0, LedColors.Length)];
+                else if (sel == "D2")
+                    hat.D3.Color = LedColors[rnd.Next(0, LedColors.Length)];
+            }
+            catch (Exception ex)
+            {
+                TxtStatus.Text = ex.Message;
+            }
+
+        }
+        Random rnd = new Random();
+        GIS.FEZHAT.Color[] LedColors = new GIS.FEZHAT.Color[] { GIS.FEZHAT.Color.Blue, GIS.FEZHAT.Color.Cyan, GIS.FEZHAT.Color.Green, GIS.FEZHAT.Color.Magneta, GIS.FEZHAT.Color.Red, GIS.FEZHAT.Color.Yellow, GIS.FEZHAT.Color.Black, GIS.FEZHAT.Color.White };
         async void Setup()
         {
             try
@@ -182,43 +205,43 @@ namespace BMC.Security.Gateway
                     client = new HttpClient();
                 }
 
-                
-                    /*
-                    if (s_deviceClient != null)
-                    {
-                        s_deviceClient.Dispose();
-                    }
-                    // Connect to the IoT hub using the MQTT protocol
-                    s_deviceClient = DeviceClient.CreateFromConnectionString(s_connectionString, TransportType.Mqtt);
-                    s_deviceClient.SetMethodHandlerAsync("DoAction", DoAction, null).Wait();
-                    */
-                    //SendDeviceToCloudMessagesAsync();
-                    SetupMqtt();
-                   
-                    CheckInternet();
 
-                    TxtIpAddress.Text = GetLocalIp();
+                /*
+                if (s_deviceClient != null)
+                {
+                    s_deviceClient.Dispose();
+                }
+                // Connect to the IoT hub using the MQTT protocol
+                s_deviceClient = DeviceClient.CreateFromConnectionString(s_connectionString, TransportType.Mqtt);
+                s_deviceClient.SetMethodHandlerAsync("DoAction", DoAction, null).Wait();
+                */
+                //SendDeviceToCloudMessagesAsync();
+                SetupMqtt();
 
-                    this.timer = new DispatcherTimer();
-                    this.timer.Interval = TimeSpan.FromMilliseconds(10000); //10 minutes
-                    this.timer.Tick += this.OnTick;
-                    this.timer.Start();
+                CheckInternet();
 
-                    this.hat = await GIS.FEZHAT.CreateAsync();
-                    this.hat.S1.SetLimits(500, 2400, 0, 180);
-                    this.hat.S2.SetLimits(500, 2400, 0, 180);
+                TxtIpAddress.Text = GetLocalIp();
+                generateJoke();
+                this.timer = new DispatcherTimer();
+                this.timer.Interval = TimeSpan.FromMilliseconds(10000); //10 minutes
+                this.timer.Tick += this.OnTick;
+                this.timer.Start();
 
-                   
+                this.hat = await GIS.FEZHAT.CreateAsync();
+                this.hat.S1.SetLimits(500, 2400, 0, 180);
+                this.hat.S2.SetLimits(500, 2400, 0, 180);
 
-                   
-                
+
+
+
+
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex);
             }
-           
-            
+
+
         }
         private string GetLocalIp()
         {
@@ -239,7 +262,7 @@ namespace BMC.Security.Gateway
         async void CheckInternet()
         {
             bool isInternetConnected = NetworkInterface.GetIsNetworkAvailable();
-            if(isInternetConnected==false && IsConnected)
+            if (isInternetConnected == false && IsConnected)
             {
                 NeedToReconnect = true;
             }
@@ -271,15 +294,16 @@ namespace BMC.Security.Gateway
                 }
                 await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, async () =>
                 {
-                    TxtLight.Text = light + "";
-                    TxtTemp.Text = temp + "";
+                    TxtLight.Text = light.ToString("n2") ;
+                    TxtTemp.Text = temp.ToString("n1") ;
                     TxtAccel.Text = x.ToString("n3") + "," + y.ToString("n3") + "," + z.ToString("n3");
                     TxtTimeUpdate.Text = DateTime.Now.ToString("dd/MM/yy HH:mm:ss");
+                    generateJoke();
                 });
                 //var token = new CancellationToken();
                 //await TryReconnectAsync(token);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, async () =>
                 {
@@ -288,7 +312,11 @@ namespace BMC.Security.Gateway
                 //IsConnected = false;
             }
         }
-
+        async void generateJoke()
+        {
+            var joke = await JokeHelper.GetJoke();
+            if (joke != null) TxtJoke.Text = joke.value.joke;
+        }
 
         // Handle the direct method call
         private async Task<string> DoAction(string Data)

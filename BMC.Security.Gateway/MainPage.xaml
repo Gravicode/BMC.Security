@@ -10,190 +10,194 @@
 
     <Grid Margin="10,10,10,10">
         <Grid.RowDefinitions>
-            <RowDefinition Height="35"></RowDefinition>
+            <RowDefinition Height="25"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
-        <TextBlock FontSize="20" VerticalAlignment="Center" Text="BMC Security System v1.0" Grid.Row="0"></TextBlock>
+        <TextBlock FontSize="14" VerticalAlignment="Center" Text="BMC Security System v1.0" Grid.Row="0"></TextBlock>
         <controls:TabView x:Name="Tabs" Grid.Row="1">
             
             <controls:TabViewItem Header="IoT Gateway">
-                <Grid>
-                    <Grid.Resources >
-                        <Style TargetType="Border" >
-                            <Setter Property="Margin" Value="2,2,2,2" />
-                            
-                        </Style>
-                    </Grid.Resources>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="256"></ColumnDefinition>
-                        <ColumnDefinition Width="256"></ColumnDefinition>
-                        <ColumnDefinition Width="256"></ColumnDefinition>
-                        <ColumnDefinition Width="256"></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="256"></RowDefinition>
-                        <RowDefinition Height="256"></RowDefinition>
-                        <RowDefinition Height="256"></RowDefinition>
-                    </Grid.RowDefinitions>
-                    <Border Background="Green" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="60"></RowDefinition>
-                                <RowDefinition Height="*"></RowDefinition>
-                                <RowDefinition Height="60"></RowDefinition>
-                            </Grid.RowDefinitions>
-                            <TextBlock Foreground="White" Text="Device Status" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30"></TextBlock>
-                            <TextBlock Foreground="White" Grid.Row="1" Name="TxtStatus" Text="[Data Incoming]" HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap" FontSize="30"></TextBlock>
+                <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" >
+                    <Grid>
+                        <Grid.Resources >
+                            <Style TargetType="Border" >
+                                <Setter Property="Margin" Value="2,2,2,2" />
 
-                            <TextBlock Foreground="White" Grid.Row="2" Text="Last Activity" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30"></TextBlock>
+                            </Style>
+                        </Grid.Resources>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="200"></ColumnDefinition>
+                            <ColumnDefinition Width="200"></ColumnDefinition>
+                            <ColumnDefinition Width="200"></ColumnDefinition>
+                            <ColumnDefinition Width="200"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="160"></RowDefinition>
+                            <RowDefinition Height="160"></RowDefinition>
+                            <RowDefinition Height="160"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Border Background="Green" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="60"></RowDefinition>
+                                    <RowDefinition Height="*"></RowDefinition>
+                                    <RowDefinition Height="60"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <TextBlock Foreground="White" Text="Device Status" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="15"></TextBlock>
+                                <TextBlock Foreground="White" Grid.Row="1" Name="TxtStatus" Text="[Data Incoming]" HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap" FontSize="15"></TextBlock>
 
-                        </Grid>
-                       
-                    </Border>
-                    
-                    <Border Background="Maroon" Grid.Column="2" Grid.Row="0">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="60"></RowDefinition>
-                                <RowDefinition Height="*"></RowDefinition>
-                                <RowDefinition Height="60"></RowDefinition>
-                            </Grid.RowDefinitions>
-                            <TextBlock Foreground="White" Text="Last Update" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30"></TextBlock>
-                            <TextBlock Foreground="White" Grid.Row="1" Text="11/11/11 00:00:00" Name="TxtTimeUpdate" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="28"></TextBlock>
+                                <TextBlock Foreground="White" Grid.Row="2" Text="Last Activity" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="15"></TextBlock>
 
-                            <TextBlock Foreground="White" Grid.Row="2" Text="Time" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30"></TextBlock>
+                            </Grid>
 
-                        </Grid>
+                        </Border>
 
-                    </Border>
-                    <Border Background="Orange" Grid.Column="3" Grid.Row="0">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="60"></RowDefinition>
-                                <RowDefinition Height="*"></RowDefinition>
-                                <RowDefinition Height="60"></RowDefinition>
-                            </Grid.RowDefinitions>
-                            <TextBlock Foreground="White" Text="Room Temp" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30"></TextBlock>
-                            <TextBlock Foreground="White" Grid.Row="1" Text="0" Name="TxtTemp" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="70"></TextBlock>
+                        <Border Background="Maroon" Grid.Column="2" Grid.Row="0">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="60"></RowDefinition>
+                                    <RowDefinition Height="*"></RowDefinition>
+                                    <RowDefinition Height="60"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <TextBlock Foreground="White" Text="Last Update" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="15"></TextBlock>
+                                <TextBlock Foreground="White" Grid.Row="1" Text="11/11/11 00:00:00" Name="TxtTimeUpdate" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20"></TextBlock>
 
-                            <TextBlock Foreground="White" Grid.Row="2" Text="Celcius" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30"></TextBlock>
+                                <TextBlock Foreground="White" Grid.Row="2" Text="Time" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="15"></TextBlock>
 
-                        </Grid>
+                            </Grid>
 
-                    </Border>
-<!--Separator-->
-                    <Border Background="Firebrick" Grid.Column="0" Grid.Row="1">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="60"></RowDefinition>
-                                <RowDefinition Height="*"></RowDefinition>
-                                <RowDefinition Height="60"></RowDefinition>
-                            </Grid.RowDefinitions>
-                            <TextBlock Foreground="White" Text="Light Intensity" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30"></TextBlock>
-                            <TextBlock Foreground="White" Grid.Row="1" Text="0" Name="TxtLight" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="70"></TextBlock>
+                        </Border>
+                        <Border Background="Orange" Grid.Column="3" Grid.Row="0">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="60"></RowDefinition>
+                                    <RowDefinition Height="*"></RowDefinition>
+                                    <RowDefinition Height="60"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <TextBlock Foreground="White" Text="Room Temp" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="15"></TextBlock>
+                                <TextBlock Foreground="White" Grid.Row="1" Text="0" Name="TxtTemp" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="42"></TextBlock>
 
-                            <TextBlock Foreground="White" Grid.Row="2" Text="Lux" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30"></TextBlock>
+                                <TextBlock Foreground="White" Grid.Row="2" Text="Celcius" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="15"></TextBlock>
 
-                        </Grid>
+                            </Grid>
 
-                    </Border>
-                    <Border Background="Indigo" Grid.Column="1" Grid.Row="1">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="60"></RowDefinition>
-                                <RowDefinition Height="*"></RowDefinition>
-                                <RowDefinition Height="60"></RowDefinition>
-                            </Grid.RowDefinitions>
-                            <TextBlock Foreground="White" Text="Acceleration" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30"></TextBlock>
-                            <TextBlock Foreground="White" Grid.Row="1" Text="0,0,0" Name="TxtAccel" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="32"></TextBlock>
+                        </Border>
+                        <!--Separator-->
+                        <Border Background="Firebrick" Grid.Column="0" Grid.Row="1">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="60"></RowDefinition>
+                                    <RowDefinition Height="*"></RowDefinition>
+                                    <RowDefinition Height="60"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <TextBlock Foreground="White" Text="Light Intensity" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="15"></TextBlock>
+                                <TextBlock Foreground="White" Grid.Row="1" Text="0" Name="TxtLight" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="42"></TextBlock>
 
-                            <TextBlock Foreground="White" Grid.Row="2" Text="Position" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30"></TextBlock>
+                                <TextBlock Foreground="White" Grid.Row="2" Text="Lux" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="15"></TextBlock>
 
-                        </Grid>
+                            </Grid>
 
-                    </Border>
-                    <Border Background="Purple" Grid.ColumnSpan="2" Grid.Column="2" Grid.Row="1">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="60"></RowDefinition>
-                                <RowDefinition Height="*"></RowDefinition>
-                                <RowDefinition Height="60"></RowDefinition>
-                            </Grid.RowDefinitions>
-                            <TextBlock Foreground="White" Text="Actions" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30"></TextBlock>
-                            <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Center">
-                                <Button Content="Test Sound" Name="BtnPlay"  FontSize="30" Margin="5,5,5,5" ></Button>
-                                <Button Content="Re-connect" Name="BtnReconnect"  FontSize="30" Margin="5,5,5,5" ></Button>
-                                <Button Content="Restart" Name="BtnRestart"  FontSize="30" Margin="5,5,5,5" ></Button>
-                            </StackPanel>
+                        </Border>
+                        <Border Background="Indigo" Grid.Column="1" Grid.Row="1">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="60"></RowDefinition>
+                                    <RowDefinition Height="*"></RowDefinition>
+                                    <RowDefinition Height="60"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <TextBlock Foreground="White" Text="Acceleration" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="15"></TextBlock>
+                                <TextBlock Foreground="White" Grid.Row="1" Text="0,0,0" Name="TxtAccel" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18"></TextBlock>
 
-                            <TextBlock Foreground="White" Grid.Row="2" Text="Controls" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30"></TextBlock>
+                                <TextBlock Foreground="White" Grid.Row="2" Text="Position" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="15"></TextBlock>
 
-                        </Grid>
+                            </Grid>
 
-                    </Border>
-                    
-                    <!--Separator-->
-                    <Border Background="SteelBlue" Grid.Column="0" Grid.Row="2">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="60"></RowDefinition>
-                                <RowDefinition Height="*"></RowDefinition>
-                                <RowDefinition Height="60"></RowDefinition>
-                            </Grid.RowDefinitions>
-                            <TextBlock Foreground="White" Text="IP Device" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30"></TextBlock>
-                            <TextBlock Foreground="White" Grid.Row="1" Name="TxtIpAddress" Text="123.123.123.123" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="32"></TextBlock>
+                        </Border>
+                        <Border Background="Purple" Grid.ColumnSpan="2" Grid.Column="2" Grid.Row="1">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="60"></RowDefinition>
+                                    <RowDefinition Height="*"></RowDefinition>
+                                    <RowDefinition Height="60"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <TextBlock Foreground="White" Text="Actions" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="15"></TextBlock>
+                                <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Center">
+                                    <Button Content="Test Sound" Name="BtnPlay"  FontSize="18" Margin="0,0,5,0"  ></Button>
+                                    <Button Content="Re-connect" Name="BtnReconnect"  FontSize="18" Margin="0,0,5,0"  ></Button>
+                                    <Button Content="Restart" Name="BtnRestart"  FontSize="18"  ></Button>
+                                </StackPanel>
 
-                            <TextBlock Foreground="White" Grid.Row="2" Text="Address" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30"></TextBlock>
+                                <TextBlock Foreground="White" Grid.Row="2" Text="Controls" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="15"></TextBlock>
 
-                        </Grid>
+                            </Grid>
 
-                    </Border>
-                    <Border Background="DarkSeaGreen" Grid.Column="1" Grid.Row="2">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="60"></RowDefinition>
-                                <RowDefinition Height="*"></RowDefinition>
-                                <RowDefinition Height="60"></RowDefinition>
-                            </Grid.RowDefinitions>
-                            <TextBlock Foreground="White" Text="Internet" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30"></TextBlock>
-                            <TextBlock Foreground="White" Grid.Row="1" Text="Off" Name="TxtInternetState" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="70"></TextBlock>
+                        </Border>
 
-                            <TextBlock Foreground="White" Grid.Row="2" Text="Status" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30"></TextBlock>
+                        <!--Separator-->
+                        <Border Background="SteelBlue" Grid.Column="0" Grid.Row="2">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="60"></RowDefinition>
+                                    <RowDefinition Height="*"></RowDefinition>
+                                    <RowDefinition Height="60"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <TextBlock Foreground="White" Text="IP Device" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="15"></TextBlock>
+                                <TextBlock Foreground="White" Grid.Row="1" Name="TxtIpAddress" Text="123.123.123.123" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20"></TextBlock>
 
-                        </Grid>
+                                <TextBlock Foreground="White" Grid.Row="2" Text="Address" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="15"></TextBlock>
 
-                    </Border>
-                    <Border Background="HotPink" Grid.Column="2" Grid.Row="2">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="60"></RowDefinition>
-                                <RowDefinition Height="*"></RowDefinition>
-                                <RowDefinition Height="60"></RowDefinition>
-                            </Grid.RowDefinitions>
-                            <TextBlock Foreground="White" Text="Slot 3" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30"></TextBlock>
-                            <TextBlock Foreground="White" Grid.Row="1" Text="000" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="70"></TextBlock>
+                            </Grid>
 
-                            <TextBlock Foreground="White" Grid.Row="2" Text="Empty" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30"></TextBlock>
+                        </Border>
+                        <Border Background="DarkSeaGreen" Grid.Column="1" Grid.Row="2">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="60"></RowDefinition>
+                                    <RowDefinition Height="*"></RowDefinition>
+                                    <RowDefinition Height="60"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <TextBlock Foreground="White" Text="Internet" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="15"></TextBlock>
+                                <TextBlock Foreground="White" Grid.Row="1" Text="Off" Name="TxtInternetState" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="42"></TextBlock>
 
-                        </Grid>
+                                <TextBlock Foreground="White" Grid.Row="2" Text="Status" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="15"></TextBlock>
 
-                    </Border>
-                    <Border Background="DarkTurquoise" Grid.Column="3" Grid.Row="2">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="60"></RowDefinition>
-                                <RowDefinition Height="*"></RowDefinition>
-                                <RowDefinition Height="60"></RowDefinition>
-                            </Grid.RowDefinitions>
-                            <TextBlock Foreground="White" Text="Slot 4" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30"></TextBlock>
-                            <TextBlock Foreground="White" Grid.Row="1" Text="000" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="70"></TextBlock>
+                            </Grid>
 
-                            <TextBlock Foreground="White" Grid.Row="2" Text="Empty" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30"></TextBlock>
+                        </Border>
+                        <Border Background="HotPink" Grid.Column="2" Grid.Row="2">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="60"></RowDefinition>
+                                    <RowDefinition Height="*"></RowDefinition>
+                                    <RowDefinition Height="60"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <TextBlock Foreground="White" Text="Refreshment" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="15"></TextBlock>
+                                <TextBlock Foreground="White" Grid.Row="1" Name="TxtJoke" Text="abcde" HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap" FontSize="10" ></TextBlock>
 
-                        </Grid>
+                                <TextBlock Foreground="White" Grid.Row="2" Text="Chuck Joke" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="15"></TextBlock>
 
-                    </Border>
-                </Grid>
+                            </Grid>
+
+                        </Border>
+                        <Border Background="DarkTurquoise" Grid.Column="3" Grid.Row="2">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="60"></RowDefinition>
+                                    <RowDefinition Height="*"></RowDefinition>
+                                    <RowDefinition Height="60"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <TextBlock Foreground="White" Text="Test LED" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="15"></TextBlock>
+                                <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Center">
+                                    <Button Margin="0,0,5,0" Tag="D1" x:Name="BtnD1" Content="Toggle D1" HorizontalAlignment="Center" FontSize="15"></Button>
+                                    <Button Margin="0,0,5,0" Tag="D2" x:Name="BtnD2" Content="Toggle D2" HorizontalAlignment="Center" FontSize="15"></Button>
+                                </StackPanel>
+                                <TextBlock Foreground="White" Grid.Row="2" Text="LED" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="15"></TextBlock>
+
+                            </Grid>
+
+                        </Border>
+                    </Grid>
+                </ScrollViewer>
             </controls:TabViewItem>
             <controls:TabViewItem Header="Weather Info">
                 <StackPanel Orientation="Vertical">
@@ -208,7 +212,7 @@
                         <Button Content="Lihat" Grid.Column="2" x:Name="BtnLihat" Margin="10,0,0,0" />
                     </Grid>
 
-                    <controls:DataGrid Name="ListWeather" Height="400" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="12" AutoGenerateColumns="False">
+                    <controls:DataGrid Name="ListWeather" Height="380" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="12" AutoGenerateColumns="False">
                         <controls:DataGrid.Columns>
                             <!-- Name Column -->
                             <controls:DataGridTemplateColumn Header="Tanggal">
