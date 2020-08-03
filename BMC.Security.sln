@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27703.2035
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30204.135
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BMC,Security.Guard", "BMC,Security.Guard\BMC,Security.Guard.csproj", "{829DCFAC-F2CC-4BFF-BBB4-677DF405FCBD}"
 EndProject
@@ -19,7 +19,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BMC.Sarah", "BMC.Sarah\BMC.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SarahApp", "BMC.Sarah.Old\SarahApp\SarahApp.csproj", "{5EC68D36-B6CB-4F79-AE78-143E6B58B0B4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BMC.Mqtt", "BMC.Mqtt\BMC.Mqtt.csproj", "{80F4360C-7D44-4D47-BA6C-D56FDDDB5DAB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BMC.Mqtt", "BMC.Mqtt\BMC.Mqtt.csproj", "{80F4360C-7D44-4D47-BA6C-D56FDDDB5DAB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BMC.ThermalScan", "BMC.ThermalScan\BMC.ThermalScan.csproj", "{74F2CAB4-FD6B-4129-B714-05CB7A64625C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -225,6 +227,32 @@ Global
 		{80F4360C-7D44-4D47-BA6C-D56FDDDB5DAB}.Release|x64.Build.0 = Release|Any CPU
 		{80F4360C-7D44-4D47-BA6C-D56FDDDB5DAB}.Release|x86.ActiveCfg = Release|Any CPU
 		{80F4360C-7D44-4D47-BA6C-D56FDDDB5DAB}.Release|x86.Build.0 = Release|Any CPU
+		{74F2CAB4-FD6B-4129-B714-05CB7A64625C}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{74F2CAB4-FD6B-4129-B714-05CB7A64625C}.Debug|ARM.ActiveCfg = Debug|ARM
+		{74F2CAB4-FD6B-4129-B714-05CB7A64625C}.Debug|ARM.Build.0 = Debug|ARM
+		{74F2CAB4-FD6B-4129-B714-05CB7A64625C}.Debug|ARM.Deploy.0 = Debug|ARM
+		{74F2CAB4-FD6B-4129-B714-05CB7A64625C}.Debug|ARM64.ActiveCfg = Debug|ARM64
+		{74F2CAB4-FD6B-4129-B714-05CB7A64625C}.Debug|ARM64.Build.0 = Debug|ARM64
+		{74F2CAB4-FD6B-4129-B714-05CB7A64625C}.Debug|ARM64.Deploy.0 = Debug|ARM64
+		{74F2CAB4-FD6B-4129-B714-05CB7A64625C}.Debug|x64.ActiveCfg = Debug|x64
+		{74F2CAB4-FD6B-4129-B714-05CB7A64625C}.Debug|x64.Build.0 = Debug|x64
+		{74F2CAB4-FD6B-4129-B714-05CB7A64625C}.Debug|x64.Deploy.0 = Debug|x64
+		{74F2CAB4-FD6B-4129-B714-05CB7A64625C}.Debug|x86.ActiveCfg = Debug|x86
+		{74F2CAB4-FD6B-4129-B714-05CB7A64625C}.Debug|x86.Build.0 = Debug|x86
+		{74F2CAB4-FD6B-4129-B714-05CB7A64625C}.Debug|x86.Deploy.0 = Debug|x86
+		{74F2CAB4-FD6B-4129-B714-05CB7A64625C}.Release|Any CPU.ActiveCfg = Release|x86
+		{74F2CAB4-FD6B-4129-B714-05CB7A64625C}.Release|ARM.ActiveCfg = Release|ARM
+		{74F2CAB4-FD6B-4129-B714-05CB7A64625C}.Release|ARM.Build.0 = Release|ARM
+		{74F2CAB4-FD6B-4129-B714-05CB7A64625C}.Release|ARM.Deploy.0 = Release|ARM
+		{74F2CAB4-FD6B-4129-B714-05CB7A64625C}.Release|ARM64.ActiveCfg = Release|ARM64
+		{74F2CAB4-FD6B-4129-B714-05CB7A64625C}.Release|ARM64.Build.0 = Release|ARM64
+		{74F2CAB4-FD6B-4129-B714-05CB7A64625C}.Release|ARM64.Deploy.0 = Release|ARM64
+		{74F2CAB4-FD6B-4129-B714-05CB7A64625C}.Release|x64.ActiveCfg = Release|x64
+		{74F2CAB4-FD6B-4129-B714-05CB7A64625C}.Release|x64.Build.0 = Release|x64
+		{74F2CAB4-FD6B-4129-B714-05CB7A64625C}.Release|x64.Deploy.0 = Release|x64
+		{74F2CAB4-FD6B-4129-B714-05CB7A64625C}.Release|x86.ActiveCfg = Release|x86
+		{74F2CAB4-FD6B-4129-B714-05CB7A64625C}.Release|x86.Build.0 = Release|x86
+		{74F2CAB4-FD6B-4129-B714-05CB7A64625C}.Release|x86.Deploy.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
