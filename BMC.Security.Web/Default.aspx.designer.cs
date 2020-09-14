@@ -7,11 +7,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace BMC.Security.Web {
-    
-    
-    public partial class _Default {
-        
+namespace BMC.Security.Web
+{
+
+
+    public partial class _Default
+    {
+
         /// <summary>
         /// UpdatePanel1 control.
         /// </summary>
@@ -20,7 +22,7 @@ namespace BMC.Security.Web {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.UpdatePanel UpdatePanel1;
-        
+
         /// <summary>
         /// PassPanel control.
         /// </summary>
@@ -29,7 +31,7 @@ namespace BMC.Security.Web {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel PassPanel;
-        
+
         /// <summary>
         /// TxtPass control.
         /// </summary>
@@ -38,7 +40,7 @@ namespace BMC.Security.Web {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox TxtPass;
-        
+
         /// <summary>
         /// BtnPass control.
         /// </summary>
@@ -47,7 +49,7 @@ namespace BMC.Security.Web {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button BtnPass;
-        
+
         /// <summary>
         /// TxtLogin control.
         /// </summary>
@@ -56,7 +58,7 @@ namespace BMC.Security.Web {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label TxtLogin;
-        
+
         /// <summary>
         /// ControlPanel control.
         /// </summary>
@@ -65,7 +67,7 @@ namespace BMC.Security.Web {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel ControlPanel;
-        
+
         /// <summary>
         /// BtnMonster control.
         /// </summary>
@@ -74,7 +76,7 @@ namespace BMC.Security.Web {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button BtnMonster;
-        
+
         /// <summary>
         /// BtnTornado control.
         /// </summary>
@@ -83,7 +85,7 @@ namespace BMC.Security.Web {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button BtnTornado;
-        
+
         /// <summary>
         /// BtnPolice control.
         /// </summary>
@@ -92,7 +94,7 @@ namespace BMC.Security.Web {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button BtnPolice;
-        
+
         /// <summary>
         /// BtnScream control.
         /// </summary>
@@ -101,7 +103,7 @@ namespace BMC.Security.Web {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button BtnScream;
-        
+
         /// <summary>
         /// BtnLedOn control.
         /// </summary>
@@ -110,7 +112,7 @@ namespace BMC.Security.Web {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button BtnLedOn;
-        
+
         /// <summary>
         /// BtnLedOff control.
         /// </summary>
@@ -119,7 +121,7 @@ namespace BMC.Security.Web {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button BtnLedOff;
-        
+
         /// <summary>
         /// BtnCCTVOn control.
         /// </summary>
@@ -128,7 +130,7 @@ namespace BMC.Security.Web {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button BtnCCTVOn;
-        
+
         /// <summary>
         /// BtnCCTVOff control.
         /// </summary>
@@ -137,7 +139,7 @@ namespace BMC.Security.Web {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button BtnCCTVOff;
-        
+
         /// <summary>
         /// TxtInterval control.
         /// </summary>
@@ -146,7 +148,7 @@ namespace BMC.Security.Web {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox TxtInterval;
-        
+
         /// <summary>
         /// BtnCCTVInterval control.
         /// </summary>
@@ -155,7 +157,7 @@ namespace BMC.Security.Web {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button BtnCCTVInterval;
-        
+
         /// <summary>
         /// BtnRelay1 control.
         /// </summary>
@@ -164,7 +166,7 @@ namespace BMC.Security.Web {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button BtnRelay1;
-        
+
         /// <summary>
         /// BtnRelay1Off control.
         /// </summary>
@@ -173,7 +175,7 @@ namespace BMC.Security.Web {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button BtnRelay1Off;
-        
+
         /// <summary>
         /// BtnRelay2 control.
         /// </summary>
@@ -182,7 +184,7 @@ namespace BMC.Security.Web {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button BtnRelay2;
-        
+
         /// <summary>
         /// BtnRelay2Off control.
         /// </summary>
@@ -191,7 +193,7 @@ namespace BMC.Security.Web {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button BtnRelay2Off;
-        
+
         /// <summary>
         /// WaterInBtn1 control.
         /// </summary>
@@ -200,7 +202,7 @@ namespace BMC.Security.Web {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button WaterInBtn1;
-        
+
         /// <summary>
         /// WaterInBtn2 control.
         /// </summary>
@@ -209,7 +211,7 @@ namespace BMC.Security.Web {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button WaterInBtn2;
-        
+
         /// <summary>
         /// WaterOutBtn1 control.
         /// </summary>
@@ -218,7 +220,7 @@ namespace BMC.Security.Web {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button WaterOutBtn1;
-        
+
         /// <summary>
         /// WaterOutBtn2 control.
         /// </summary>
@@ -227,7 +229,7 @@ namespace BMC.Security.Web {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button WaterOutBtn2;
-        
+
         /// <summary>
         /// BtnRelayAqua1 control.
         /// </summary>
@@ -236,7 +238,7 @@ namespace BMC.Security.Web {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button BtnRelayAqua1;
-        
+
         /// <summary>
         /// BtnRelayAqua1Off control.
         /// </summary>
@@ -245,7 +247,7 @@ namespace BMC.Security.Web {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button BtnRelayAqua1Off;
-        
+
         /// <summary>
         /// BtnRelayAqua2 control.
         /// </summary>
@@ -254,7 +256,7 @@ namespace BMC.Security.Web {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button BtnRelayAqua2;
-        
+
         /// <summary>
         /// BtnRelayAqua2Off control.
         /// </summary>
@@ -263,7 +265,169 @@ namespace BMC.Security.Web {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button BtnRelayAqua2Off;
-        
+
+        /// <summary>
+        /// DrainRelay1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox DrainRelay1;
+
+        /// <summary>
+        /// DrainRelay2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox DrainRelay2;
+
+        /// <summary>
+        /// DrainRelay3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox DrainRelay3;
+
+        /// <summary>
+        /// DrainRelay4 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox DrainRelay4;
+
+        /// <summary>
+        /// DrainRelay5 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox DrainRelay5;
+
+        /// <summary>
+        /// DrainRelay6 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox DrainRelay6;
+
+        /// <summary>
+        /// DrainRelay8 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox DrainRelay8;
+
+        /// <summary>
+        /// DrainRelay7 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox DrainRelay7;
+
+        /// <summary>
+        /// DrainRelay9 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox DrainRelay9;
+
+        /// <summary>
+        /// DrainRelay10 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox DrainRelay10;
+
+        /// <summary>
+        /// DrainRelay11 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox DrainRelay11;
+
+        /// <summary>
+        /// DrainRelay12 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox DrainRelay12;
+
+        /// <summary>
+        /// DrainRelay13 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox DrainRelay13;
+
+        /// <summary>
+        /// DrainRelay14 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox DrainRelay14;
+
+        /// <summary>
+        /// BtnDrainageOn control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button BtnDrainageOn;
+
+        /// <summary>
+        /// BtnDrainageOff control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button BtnDrainageOff;
+
+        /// <summary>
+        /// BtnDrainageFillOn control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button BtnDrainageFillOn;
+
+        /// <summary>
+        /// BtnDrainageFillOff control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button BtnDrainageFillOff;
+
         /// <summary>
         /// RptControlDevice control.
         /// </summary>
@@ -272,7 +436,7 @@ namespace BMC.Security.Web {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Repeater RptControlDevice;
-        
+
         /// <summary>
         /// TxtStatus control.
         /// </summary>
@@ -281,7 +445,7 @@ namespace BMC.Security.Web {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label TxtStatus;
-        
+
         /// <summary>
         /// UpdateProgress1 control.
         /// </summary>

@@ -76,5 +76,13 @@ namespace BMC.Security.Web.Helpers
             //Console.WriteLine(response.GetPayloadAsJson());
         }
 
+        public Task InvokeMethod3(string Topic, string ActionName)
+        {
+            return Task.Factory.StartNew(() => {
+                var action = ActionName;
+                SendCommand(action, Topic);
+            });
+        }
+
     }
 }

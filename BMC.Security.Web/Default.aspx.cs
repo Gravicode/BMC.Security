@@ -39,6 +39,12 @@ namespace BMC.Security.Web
             BtnRelayAqua1Off.Click += DoAction;
             BtnRelayAqua2.Click += DoAction;
             BtnRelayAqua2Off.Click += DoAction;
+
+            BtnDrainageOn.Click += DoAction;
+            BtnDrainageOff.Click += DoAction;
+            BtnDrainageFillOn.Click += DoAction;
+            BtnDrainageFillOff.Click += DoAction;
+
             if (!IsPostBack)
             {
                 var data = DeviceData.GetAllDevices();
@@ -117,6 +123,145 @@ namespace BMC.Security.Web
                     case "RelayAqua2":
                         await iot.InvokeMethod2("bmc/aquaponic/control", "Relay2", new string[] { btn.CommandArgument });
                         break;
+                    case "DraineageOn":
+                        // neck
+                        await iot.InvokeMethod3("bmc/autodrainage/relay16", "on");
+                        await iot.InvokeMethod3("bmc/autodrainage/relay15", "off");
+
+                        // mouth
+                        if (DrainRelay1.Checked)
+                            iot.InvokeMethod3("bmc/autodrainage/relay1", "on");
+                        if (DrainRelay2.Checked)
+                            iot.InvokeMethod3("bmc/autodrainage/relay2", "on");
+                        if (DrainRelay3.Checked)
+                            iot.InvokeMethod3("bmc/autodrainage/relay3", "on");
+                        if (DrainRelay4.Checked)
+                            iot.InvokeMethod3("bmc/autodrainage/relay4", "on");
+                        if (DrainRelay5.Checked)
+                            iot.InvokeMethod3("bmc/autodrainage/relay5", "on");
+                        if (DrainRelay6.Checked)
+                            iot.InvokeMethod3("bmc/autodrainage/relay6", "on");
+                        if (DrainRelay7.Checked)
+                            iot.InvokeMethod3("bmc/autodrainage/relay7", "on");
+                        if (DrainRelay8.Checked)
+                            iot.InvokeMethod3("bmc/autodrainage/relay8", "on");
+                        if (DrainRelay9.Checked)
+                            iot.InvokeMethod3("bmc/autodrainage/relay9", "on");
+                        if (DrainRelay10.Checked)
+                            iot.InvokeMethod3("bmc/autodrainage/relay10", "on");
+                        if (DrainRelay11.Checked)
+                            iot.InvokeMethod3("bmc/autodrainage/relay11", "on");
+                        if (DrainRelay12.Checked)
+                            iot.InvokeMethod3("bmc/autodrainage/relay12", "on");
+                        if (DrainRelay13.Checked)
+                            iot.InvokeMethod3("bmc/autodrainage/relay13", "on");
+                        if (DrainRelay14.Checked)
+                            iot.InvokeMethod3("bmc/autodrainage/relay14", "on");
+                        break;
+                    case "DraineageOff":
+                        // neck
+                        await iot.InvokeMethod3("bmc/autodrainage/relay16", "off");
+
+                        // mouth
+                        if (DrainRelay1.Checked)
+                            iot.InvokeMethod3("bmc/autodrainage/relay1", "off");
+                        if (DrainRelay2.Checked)
+                            iot.InvokeMethod3("bmc/autodrainage/relay2", "off");
+                        if (DrainRelay3.Checked)
+                            iot.InvokeMethod3("bmc/autodrainage/relay3", "off");
+                        if (DrainRelay4.Checked)
+                            iot.InvokeMethod3("bmc/autodrainage/relay4", "off");
+                        if (DrainRelay5.Checked)
+                            iot.InvokeMethod3("bmc/autodrainage/relay5", "off");
+                        if (DrainRelay6.Checked)
+                            iot.InvokeMethod3("bmc/autodrainage/relay6", "off");
+                        if (DrainRelay7.Checked)
+                            iot.InvokeMethod3("bmc/autodrainage/relay7", "off");
+                        if (DrainRelay8.Checked)
+                            iot.InvokeMethod3("bmc/autodrainage/relay8", "off");
+                        if (DrainRelay9.Checked)
+                            iot.InvokeMethod3("bmc/autodrainage/relay9", "off");
+                        if (DrainRelay10.Checked)
+                            iot.InvokeMethod3("bmc/autodrainage/relay10", "off");
+                        if (DrainRelay11.Checked)
+                            iot.InvokeMethod3("bmc/autodrainage/relay11", "off");
+                        if (DrainRelay12.Checked)
+                            iot.InvokeMethod3("bmc/autodrainage/relay12", "off");
+                        if (DrainRelay13.Checked)
+                            iot.InvokeMethod3("bmc/autodrainage/relay13", "off");
+                        if (DrainRelay14.Checked)
+                            iot.InvokeMethod3("bmc/autodrainage/relay14", "off");
+                        break;
+                    case "DraineageFillOn":
+                        // neck
+                        await iot.InvokeMethod3("bmc/autodrainage/relay16", "off");
+                        await iot.InvokeMethod3("bmc/autodrainage/relay15", "on");
+
+                        // mouth
+                        if (DrainRelay1.Checked)
+                            iot.InvokeMethod3("bmc/autodrainage/relay1", "on");
+                        if (DrainRelay2.Checked)
+                            iot.InvokeMethod3("bmc/autodrainage/relay2", "on");
+                        if (DrainRelay3.Checked)
+                            iot.InvokeMethod3("bmc/autodrainage/relay3", "on");
+                        if (DrainRelay4.Checked)
+                            iot.InvokeMethod3("bmc/autodrainage/relay4", "on");
+                        if (DrainRelay5.Checked)
+                            iot.InvokeMethod3("bmc/autodrainage/relay5", "on");
+                        if (DrainRelay6.Checked)
+                            iot.InvokeMethod3("bmc/autodrainage/relay6", "on");
+                        if (DrainRelay7.Checked)
+                            iot.InvokeMethod3("bmc/autodrainage/relay7", "on");
+                        if (DrainRelay8.Checked)
+                            iot.InvokeMethod3("bmc/autodrainage/relay8", "on");
+                        if (DrainRelay9.Checked)
+                            iot.InvokeMethod3("bmc/autodrainage/relay9", "on");
+                        if (DrainRelay10.Checked)
+                            iot.InvokeMethod3("bmc/autodrainage/relay10", "on");
+                        if (DrainRelay11.Checked)
+                            iot.InvokeMethod3("bmc/autodrainage/relay11", "on");
+                        if (DrainRelay12.Checked)
+                            iot.InvokeMethod3("bmc/autodrainage/relay12", "on");
+                        if (DrainRelay13.Checked)
+                            iot.InvokeMethod3("bmc/autodrainage/relay13", "on");
+                        if (DrainRelay14.Checked)
+                            iot.InvokeMethod3("bmc/autodrainage/relay14", "on");
+                        break;
+                    case "DraineageFillOff":
+                        // neck
+                        await iot.InvokeMethod3("bmc/autodrainage/relay15", "off");
+
+                        // mouth
+                        if (DrainRelay1.Checked)
+                            iot.InvokeMethod3("bmc/autodrainage/relay1", "off");
+                        if (DrainRelay2.Checked)
+                            iot.InvokeMethod3("bmc/autodrainage/relay2", "off");
+                        if (DrainRelay3.Checked)
+                            iot.InvokeMethod3("bmc/autodrainage/relay3", "off");
+                        if (DrainRelay4.Checked)
+                            iot.InvokeMethod3("bmc/autodrainage/relay4", "off");
+                        if (DrainRelay5.Checked)
+                            iot.InvokeMethod3("bmc/autodrainage/relay5", "off");
+                        if (DrainRelay6.Checked)
+                            iot.InvokeMethod3("bmc/autodrainage/relay6", "off");
+                        if (DrainRelay7.Checked)
+                            iot.InvokeMethod3("bmc/autodrainage/relay7", "off");
+                        if (DrainRelay8.Checked)
+                            iot.InvokeMethod3("bmc/autodrainage/relay8", "off");
+                        if (DrainRelay9.Checked)
+                            iot.InvokeMethod3("bmc/autodrainage/relay9", "off");
+                        if (DrainRelay10.Checked)
+                            iot.InvokeMethod3("bmc/autodrainage/relay10", "off");
+                        if (DrainRelay11.Checked)
+                            iot.InvokeMethod3("bmc/autodrainage/relay11", "off");
+                        if (DrainRelay12.Checked)
+                            iot.InvokeMethod3("bmc/autodrainage/relay12", "off");
+                        if (DrainRelay13.Checked)
+                            iot.InvokeMethod3("bmc/autodrainage/relay13", "off");
+                        if (DrainRelay14.Checked)
+                            iot.InvokeMethod3("bmc/autodrainage/relay14", "off");
+                        break;
+
                 }
             }
             catch(Exception ex)
