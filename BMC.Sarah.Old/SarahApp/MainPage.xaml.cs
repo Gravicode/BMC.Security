@@ -30,6 +30,10 @@ using System.Threading;
 using System.Net.Http;
 using MyToolkit.Multimedia;
 using SarahApp.Libs;
+using Windows.Graphics.Imaging;
+using Windows.Storage.Streams;
+using Windows.Media.MediaProperties;
+using System.Globalization;
 
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
@@ -41,6 +45,7 @@ namespace SarahApp
     {
         private AzureBlobHelper BlobEngine;
         static MqttService iot = new MqttService();
+        static List<CCTVData> CCTVs = CCTVData.GetCCTVs();
         static List<DeviceData> Devices = DeviceData.GetAllDevices();
         public enum Genre { Rock, Slow, Blues, Jazz, Electro };
 
@@ -77,6 +82,8 @@ namespace SarahApp
 
         public MainPage()
         {
+          
+
             this.InitializeComponent();
             BlobEngine = new AzureBlobHelper();
             httpClient = new HttpClient();
@@ -92,11 +99,11 @@ namespace SarahApp
                 [MediaBank.Info] = new SarahApp.MediaItem("https://archive.org/download/HotelCalifornia_201610/Hotel%20California.mp3")//(@"ms -appx:///lagu/santai.mp3")
             };
 
-            SongIDs.Add(Genre.Slow, new string[] { "C38MvuAtZjc", "qCGrJ7zVA7U", "DCMd-P9cxBo" });
-            SongIDs.Add(Genre.Blues, new string[] { "zUuZ3CZYwDc", "fYr819V--ic", "oiyY81VOpBI" });
-            SongIDs.Add(Genre.Jazz, new string[] { "YGURYe7coRU", "gz93tWf3TTE", "_sI_Ps7JSEk" });
-            SongIDs.Add(Genre.Rock, new string[] { "_wii6Tfb4RQ", "_wii6Tfb4RQ", "O0Az_HYNu4g" });
-            SongIDs.Add(Genre.Electro, new string[] { "5uB4HCVD4Ec", "4XpDdIISlYo", "c17k4LfLkaE", "MD_p19guYcs", "Xh2DEUUR7QU" });
+            SongIDs.Add(Genre.Slow, new string[] { "CqjJa2kQeNU", "XA6e18vlC6Y", "cW9EdTbkWfc" });
+            SongIDs.Add(Genre.Blues, new string[] { "D93PBlwBp8s", "1eNSWZ4x2ZU", "C-ZDyOrrgOc" });
+            SongIDs.Add(Genre.Jazz, new string[] { "neV3EPgvZ3g", "CdnaJPPxQow", "6YnzTDqQb8k" });
+            SongIDs.Add(Genre.Rock, new string[] { "wxYoeez_8GY", "3FMJlPQJya4", "26nsBfLXwSQ" });
+            SongIDs.Add(Genre.Electro, new string[] { "QnzbBzOGHPA", "YqeW9_5kURI", "sJ6pEKWzTys", "YyYOYsL49NI", "PKjApxwIvF4" });
 
             Player1.MediaPlayer.Volume = 80;
             Player1.AutoPlay = false;
@@ -275,7 +282,11 @@ namespace SarahApp
                 VoiceCommands.Add($"TURNON{x}", new string[] { "please turn on " + Devices[x].Name });
                 VoiceCommands.Add($"TURNOFF{x}", new string[] { "please turn off " + Devices[x].Name });
             }
-         
+
+            for (int x = 0; x < CCTVs.Count; x++)
+            {
+                VoiceCommands.Add($"LOOK{x}", new string[] { "please look at " + CCTVs[x].Name });
+            }
 
 
         }
@@ -683,7 +694,8 @@ namespace SarahApp
                                     var rnd = new Random(Environment.TickCount);
                                     var selIds = SongIDs[genre];
                                     var num = rnd.Next(0, selIds.Length - 1);
-                                    var url = await YouTube.GetVideoUriAsync(selIds[num], YouTubeQuality.QualityLow);
+                                    //IEnumerable<YoutubeExtractor.VideoInfo> videoInfos = YoutubeExtractor.DownloadUrlResolver.GetDownloadUrls(selIds[num],true);
+                                    var url = await YouTube.GetVideoUriAsync(selIds[num], YouTubeQuality.Quality360P);
                                     MediaPlayerHelper.CleanUpMediaPlayerSource(Player1.MediaPlayer);
                                     Player1.MediaPlayer.Source = new MediaItem(url.Uri.ToString()).MediaPlaybackItem;
                                     Player1.MediaPlayer.Play();
@@ -746,7 +758,15 @@ namespace SarahApp
                         case TagCommands.WhatDate: { await speech.Read("Today is " + DateTime.Now.ToString("dd MMMM yyyy")); }; break;
                         case TagCommands.WhatTime: { await speech.Read("Current time is " + DateTime.Now.ToString("HH:mm")); }; break;
                         default:
-                            for(int x = 0; x < Devices.Count; x++)
+                            for (int x = 0; x < CCTVs.Count; x++)
+                            {
+                                if (tag == $"LOOK{x}")
+                                {
+                                    await ViewCCTV(x);
+                                    break;
+                                }
+                            }
+                            for (int x = 0; x < Devices.Count; x++)
                             {
                                 if(tag == $"TURNON{x}")
                                 {
@@ -776,6 +796,60 @@ namespace SarahApp
             }
         }
 
+        async Task ViewCCTV(int CCTVNo)
+        {
+            if (CCTVNo < 0 || CCTVNo > CCTVs.Count - 1) return;
+            var selCCTV = CCTVs[CCTVNo];
+
+            var rnd = new Random();
+            try
+            {
+                
+
+                var data = await httpClient.GetByteArrayAsync(selCCTV.Url + rnd.Next(100));
+               
+                SoftwareBitmap outputBitmap = null;
+                using (InMemoryRandomAccessStream stream = new InMemoryRandomAccessStream())
+                {
+                    await stream.WriteAsync(data.AsBuffer());
+                    stream.Seek(0);
+                    //await bmp.SetSourceAsync(stream);
+                    //new
+                    ImageEncodingProperties properties = ImageEncodingProperties.CreateJpeg();
+
+                    var decoder = await BitmapDecoder.CreateAsync(stream);
+                    outputBitmap = await decoder.GetSoftwareBitmapAsync();
+                }
+
+                if (outputBitmap != null)
+                {
+
+                    SoftwareBitmap displayableImage = SoftwareBitmap.Convert(outputBitmap, BitmapPixelFormat.Bgra8, BitmapAlphaMode.Premultiplied);
+                    string fileName = $"CCTV_{CCTVNo}_{rnd.Next(999)}.jpg";
+                    CreationCollisionOption collisionOption = CreationCollisionOption.GenerateUniqueName;
+                    StorageFile file = await ApplicationData.Current.TemporaryFolder.CreateFileAsync(fileName, collisionOption);
+                    await ImageHelpers.SaveSoftwareBitmapToFile(displayableImage, file);
+                    var res = await ApiContainer.GetApi<ComputerVisionService>().RecognizeImage(file);
+                    if (!string.IsNullOrEmpty(res))
+                    {
+                        await speech.Read(res);
+                        resultTextBlock.Text = "I see " + res;
+                    }
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+                var res = "I cannot access cctv";
+                await speech.Read(res);
+                resultTextBlock.Text = res;
+                Debug.WriteLine(ex);
+            }
+           
+           
+
+        }
         private async void SwitchDevice(bool State,string IP)
         {
             if (State)
