@@ -104,10 +104,12 @@
     <Compile Include="Libs\AudioCapturePermissions.cs" />
     <Compile Include="Libs\AzureBlobHelper.cs" />
     <Compile Include="Libs\AzureIoT.cs" />
+    <Compile Include="Libs\CCTVData.cs" />
     <Compile Include="Libs\ComputerVisionService.cs" />
     <Compile Include="Libs\DeviceData.cs" />
     <Compile Include="Libs\EngineContainer.cs" />
     <Compile Include="Libs\FaceService.cs" />
+    <Compile Include="Libs\ImageHelpers.cs" />
     <Compile Include="Libs\JokeHelper.cs" />
     <Compile Include="Libs\LuisHelper.cs" />
     <Compile Include="Libs\MediaPlayerHelper.cs" />
@@ -173,13 +175,16 @@
       <Version>1.0.393</Version>
     </PackageReference>
     <PackageReference Include="MyToolkit">
-      <Version>2.5.16</Version>
+      <Version>2.5.10</Version>
     </PackageReference>
     <PackageReference Include="MyToolkit.Extended">
-      <Version>2.5.16</Version>
+      <Version>2.5.10</Version>
     </PackageReference>
     <PackageReference Include="WindowsAzure.Storage">
       <Version>9.3.2</Version>
+    </PackageReference>
+    <PackageReference Include="YoutubeExtractor">
+      <Version>0.10.11</Version>
     </PackageReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">

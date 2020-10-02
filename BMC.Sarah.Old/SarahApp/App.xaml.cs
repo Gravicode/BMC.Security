@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -28,6 +29,9 @@ namespace SarahApp
         /// </summary>
         public App()
         {
+            CultureInfo ci = new CultureInfo("en-US");
+            CultureInfo.CurrentUICulture = ci;
+            CultureInfo.CurrentCulture = ci;
             this.InitializeComponent();
             this.Suspending += OnSuspending;
         }
