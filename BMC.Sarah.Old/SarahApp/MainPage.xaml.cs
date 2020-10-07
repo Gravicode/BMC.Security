@@ -278,6 +278,8 @@ namespace SarahApp
             VoiceCommands.Add(TagCommands.ReciteQuran, new string[] { "recite holy verse" });
             VoiceCommands.Add(TagCommands.WhatDate, new string[] { "what date is it" });
             VoiceCommands.Add(TagCommands.WhatTime, new string[] { "what time is it" });
+            VoiceCommands.Add(TagCommands.TurnOffAll, new string[] { "shutdown everything" });
+            VoiceCommands.Add(TagCommands.TurnOnAll, new string[] { "turn on everything" });
             for (int x = 0;x < Devices.Count; x++){
                 VoiceCommands.Add($"TURNON{x}", new string[] { "please turn on " + Devices[x].Name });
                 VoiceCommands.Add($"TURNOFF{x}", new string[] { "please turn off " + Devices[x].Name });
@@ -757,6 +759,27 @@ namespace SarahApp
                             break;
                         case TagCommands.WhatDate: { await speech.Read("Today is " + DateTime.Now.ToString("dd MMMM yyyy")); }; break;
                         case TagCommands.WhatTime: { await speech.Read("Current time is " + DateTime.Now.ToString("HH:mm")); }; break;
+                        case TagCommands.TurnOffAll: {
+                                for (int x = 0; x < Devices.Count; x++)
+                                {
+                                    SwitchDevice(false, Devices[x].IP);
+                                    
+                                }
+                                await speech.Read("shutdown is complete, boss"); 
+                            
+                            }; 
+                            break;
+                        case TagCommands.TurnOnAll:
+                            {
+                                for (int x = 0; x < Devices.Count; x++)
+                                {
+                                    SwitchDevice(true, Devices[x].IP);
+
+                                }
+                                await speech.Read("all devices has been turned on");
+
+                            };
+                            break;
                         default:
                             for (int x = 0; x < CCTVs.Count; x++)
                             {

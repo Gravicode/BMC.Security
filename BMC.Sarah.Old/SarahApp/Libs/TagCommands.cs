@@ -30,5 +30,7 @@ namespace SarahApp
         public const string ReciteQuran = "ReciteQuran";
         public const string WhatTime = "WhatTime";
         public const string WhatDate = "WhatDate";
+        public const string TurnOnAll = "TurnOnAll";
+        public const string TurnOffAll = "TurnOffAll";
     }
 }
