@@ -32,5 +32,7 @@ namespace SarahApp
         public const string WhatDate = "WhatDate";
         public const string TurnOnAll = "TurnOnAll";
         public const string TurnOffAll = "TurnOffAll";
+        public const string ReleaseDog = "ReleaseDog";
+        public const string CountVehicle = "CountVehicle";
     }
 }

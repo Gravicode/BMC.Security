@@ -34,6 +34,7 @@ using Windows.Graphics.Imaging;
 using Windows.Storage.Streams;
 using Windows.Media.MediaProperties;
 using System.Globalization;
+using Windows.Media;
 
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
@@ -43,6 +44,7 @@ namespace SarahApp
     public enum MediaBank { Warning, Info, Alert, Alarm }
     public sealed partial class MainPage : Page
     {
+        static ObjectDetectorLib detector;
         private AzureBlobHelper BlobEngine;
         static MqttService iot = new MqttService();
         static List<CCTVData> CCTVs = CCTVData.GetCCTVs();
@@ -78,7 +80,20 @@ namespace SarahApp
         static Dictionary<Genre, string[]> SongIDs = new Dictionary<Genre, string[]>();
         // Keep track of whether the continuous recognizer is currently running, so it can be cleaned up appropriately.
         private bool isListening;
+        async void PlaySound(string SoundFile)
+        {
+            await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, async () =>
+            {
 
+                MediaElement mysong = new MediaElement();
+                Windows.Storage.StorageFolder folder = await Windows.ApplicationModel.Package.Current.InstalledLocation.GetFolderAsync("Assets");
+                Windows.Storage.StorageFile file = await folder.GetFileAsync(SoundFile);
+                var stream = await file.OpenAsync(Windows.Storage.FileAccessMode.Read);
+                mysong.SetSource(stream, file.ContentType);
+                mysong.Play();
+                //UI code here
+            });
+        }
 
         public MainPage()
         {
@@ -129,6 +144,7 @@ namespace SarahApp
             {
                 timer = new Timer(OnTimerTick, null, new TimeSpan(0, 0, 1), new TimeSpan(0, APPCONTANTS.IntervalTimerMin, 0));
             }
+            detector = new ObjectDetectorLib();
         }
 
         private async void OnTimerTick(object state)
@@ -280,6 +296,8 @@ namespace SarahApp
             VoiceCommands.Add(TagCommands.WhatTime, new string[] { "what time is it" });
             VoiceCommands.Add(TagCommands.TurnOffAll, new string[] { "shutdown everything" });
             VoiceCommands.Add(TagCommands.TurnOnAll, new string[] { "turn on everything" });
+            VoiceCommands.Add(TagCommands.ReleaseDog, new string[] { "release the dog" });
+            VoiceCommands.Add(TagCommands.CountVehicle, new string[] { "do you see any vehicle" });
             for (int x = 0;x < Devices.Count; x++){
                 VoiceCommands.Add($"TURNON{x}", new string[] { "please turn on " + Devices[x].Name });
                 VoiceCommands.Add($"TURNOFF{x}", new string[] { "please turn off " + Devices[x].Name });
@@ -619,6 +637,22 @@ namespace SarahApp
                         case TagCommands.Stop:
                             Player1.MediaPlayer.Pause();
                             break;
+                        case TagCommands.ReleaseDog:
+                            PlaySound("barking.wav");
+                            break;
+                        case TagCommands.CountVehicle:
+                            var CCTVNum = CCTVs.Where(x => x.Name.Contains("Parking")).FirstOrDefault();
+                            var frame =await  GetCCTVFrame(CCTVNum.ID-1);
+                            var detectedObj =await detector.DetectObject(frame);
+                            if(detectedObj.person == 0 && detectedObj.vehicle == 0)
+                            {
+                                await speech.Read("I saw nothing, bos");
+                            }
+                            else
+                            {
+                                await speech.Read($"I saw {detectedObj.vehicle} vehicles and {detectedObj.person} persons");
+                            }
+                            break;
                         case TagCommands.PlayBlues:
                         case TagCommands.PlaySlow:
                         case TagCommands.PlayRock:
@@ -817,6 +851,53 @@ namespace SarahApp
                     resultTextBlock.Text = string.Format("Sorry, I didn't catch that. (Heard: '{0}', Tag: {1}, Confidence: {2})", args.Result.Text, tag, args.Result.Confidence.ToString());
                 });
             }
+        }
+
+        async Task<VideoFrame> GetCCTVFrame(int CCTVNo)
+        {
+            if (CCTVNo < 0 || CCTVNo > CCTVs.Count - 1) return null;
+            var selCCTV = CCTVs[CCTVNo];
+
+            var rnd = new Random();
+            try
+            {
+
+
+                var data = await httpClient.GetByteArrayAsync(selCCTV.Url + rnd.Next(100));
+
+                SoftwareBitmap outputBitmap = null;
+                using (InMemoryRandomAccessStream stream = new InMemoryRandomAccessStream())
+                {
+                    await stream.WriteAsync(data.AsBuffer());
+                    stream.Seek(0);
+                    //await bmp.SetSourceAsync(stream);
+                    //new
+                    ImageEncodingProperties properties = ImageEncodingProperties.CreateJpeg();
+
+                    var decoder = await BitmapDecoder.CreateAsync(stream);
+                    outputBitmap = await decoder.GetSoftwareBitmapAsync();
+                }
+
+                if (outputBitmap != null)
+                {
+
+                    SoftwareBitmap displayableImage = SoftwareBitmap.Convert(outputBitmap, BitmapPixelFormat.Bgra8, BitmapAlphaMode.Premultiplied);
+                    string fileName = $"CCTV_{CCTVNo}_{rnd.Next(999)}.jpg";
+                    return VideoFrame.CreateWithSoftwareBitmap(displayableImage);
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+                var res = "I cannot access cctv";
+                await speech.Read(res);
+                resultTextBlock.Text = res;
+                Debug.WriteLine(ex);
+            }
+            return null;
+
+
         }
 
         async Task ViewCCTV(int CCTVNo)
