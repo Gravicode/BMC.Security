@@ -125,8 +125,8 @@ namespace BMC.Security.Web
                         break;
                     case "DraineageOn":
                         // neck
-                        await iot.InvokeMethod3("bmc/autodrainage/relay16", "on");
-                        await iot.InvokeMethod3("bmc/autodrainage/relay15", "off");
+                        //await iot.InvokeMethod3("bmc/autodrainage/relay16", "on");
+                        //await iot.InvokeMethod3("bmc/autodrainage/relay15", "off");
 
                         // mouth
                         if (DrainRelay1.Checked)

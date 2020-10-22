@@ -1,0 +1,23 @@
+﻿@inject NavigationManager navMgr
+@inject AuthenticationStateProvider authProvider
+
+<AuthorizeView>
+    <Authorized>
+        <div class="top-row px-4">
+            <a @onclick="@(() => LogOut())">Logout</a>
+        </div>
+    </Authorized>
+    <NotAuthorized>
+        <div class="top-row px-4">
+            <a href="/auth/login">Login</a>
+        </div>
+    </NotAuthorized>
+</AuthorizeView>
+
+@code
+{
+    private void LogOut()
+    {
+        navMgr.NavigateTo("/logout");
+    }
+}

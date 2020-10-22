@@ -1,0 +1,10 @@
+﻿@page "/"
+<AuthorizeView>
+    <Authorized>
+        <h1>Hello, @context.User.Identity.Name</h1>
+        <h1>Welcome to BMC WEB Security</h1>
+    </Authorized>
+    <NotAuthorized>
+        <h1>Welcome to BMC WEB Security</h1>
+    </NotAuthorized>
+</AuthorizeView>
