@@ -1,17 +1,18 @@
 ﻿@inherits LayoutComponentBase
 @using Blazored.Toast.Configuration
 
-<div class="sidebar">
-    <NavMenu />
-</div>
+    <div class="sidebar">
+        <NavMenu />
+        <AuthControl></AuthControl>
+    </div>
 
 <div class="main">
     <LoginDisplay />
     <div class="content px-4">
         @Body
-        <hr style="background:black" />
-        <footer style="color:#666">
-            <p>&copy; BMSPACE 2020</p>
+        <hr />
+        <footer>
+            <p>&copy; BMC 2020</p>
         </footer>
     </div>
 

@@ -1,11 +1,10 @@
-﻿@page "/controlpanel"
-
+﻿
 @using BMC.Security.Web.Blazor.Helpers
 
 <div class="container">
-    <div style="text-align: center; padding-bottom: 10px;">
-        <strong style="font-size:25px">BMSPACE SECURITY CONTROL 1.0</strong>
-    </div>
+    <h2>
+        <b>BMSPACE SECURITY CONTROL 1.0</b>
+    </h2>
     <table class="table table-striped">
         <thead>
             <tr>
@@ -18,37 +17,37 @@
             <tr>
                 <td>1.</td>
                 <td>Keluarkan suara monster</td>
-                <td><button @onclick="@(() => DoAction("Monster"))" style=" border: 1px solid; padding: 5px 10px; border-radius: 15px; color: black; text-decoration: none;">PLAY</button></td>
+                <td><button @onclick="@(() => DoAction("Monster"))" class="btn btn-info" >PLAY</button></td>
             </tr>
             <tr>
                 <td>2.</td>
                 <td>Keluarkan suara tornado</td>
-                <td><button @onclick="@(() => DoAction("Tornado"))" style=" border: 1px solid; padding: 5px 10px; border-radius: 15px; color: black; text-decoration: none;">PLAY</button></td>
+                <td><button @onclick="@(() => DoAction("Tornado"))" class="btn btn-info">PLAY</button></td>
             </tr>
             <tr>
                 <td>3.</td>
                 <td>Keluarkan suara polisi</td>
-                <td><button @onclick="@(() => DoAction("Police"))" style=" border: 1px solid; padding: 5px 10px; border-radius: 15px; color: black; text-decoration: none;">PLAY</button></td>
+                <td><button @onclick="@(() => DoAction("Police"))" class="btn btn-info">PLAY</button></td>
             </tr>
             <tr>
                 <td>4.</td>
                 <td>Keluarkan suara teriakan</td>
-                <td><button @onclick="@(() => DoAction("Scream"))" style=" border: 1px solid; padding: 5px 10px; border-radius: 15px; color: black; text-decoration: none;">PLAY</button></td>
+                <td><button @onclick="@(() => DoAction("Scream"))" class="btn btn-info">PLAY</button></td>
             </tr>
             <tr>
                 <td>4.</td>
                 <td>LED</td>
                 <td>
-                    <button @onclick="@(() => DoAction("LEDON"))" style=" border: 1px solid;color:white;background:blue; padding: 5px 10px; border-radius: 15px; color: black; text-decoration: none;">TURN</button>
-                    <button @onclick="@(() => DoAction("LEDOFF"))" style=" border: 1px solid;color:white;background:red; padding: 5px 10px; border-radius: 15px; color: black; text-decoration: none;">OFF</button>
+                    <button @onclick="@(() => DoAction("LEDON"))" class="btn btn-info">TURN</button>
+                    <button @onclick="@(() => DoAction("LEDOFF"))" class="btn btn-danger">OFF</button>
                 </td>
             </tr>
             <tr>
                 <td>5.</td>
                 <td>CCTV Watching Status</td>
                 <td>
-                    <button @onclick="@(() => DoAction("CCTVStatus", "True"))" style=" border: 1px solid;color:white;background:blue; padding: 5px 10px; border-radius: 15px; color: black; text-decoration: none;">TURN</button>
-                    <button @onclick="@(() => DoAction("CCTVStatus", "False"))" style=" border: 1px solid;color:white;background:red; padding: 5px 10px; border-radius: 15px; color: black; text-decoration: none;">OFF</button>
+                    <button @onclick="@(() => DoAction("CCTVStatus", "True"))" class="btn btn-info">TURN</button>
+                    <button @onclick="@(() => DoAction("CCTVStatus", "False"))" class="btn btn-danger">OFF</button>
                 </td>
             </tr>
             <tr>
@@ -68,7 +67,7 @@
                         </tr>
                         <tr>
                             <td>
-                                <button @onclick="@(() => DoAction("CCTVUpdateTime"))" style=" border: 1px solid; padding: 5px 10px; border-radius: 15px; color: black; text-decoration: none;">Set waktu</button>
+                                <button @onclick="@(() => DoAction("CCTVUpdateTime"))" class="btn btn-info">Set waktu</button>
                             </td>
                         </tr>
                     </table>
@@ -79,12 +78,12 @@
                 <td>Hidroponik</td>
                 <td>
                     <div class="uk-button-group">
-                        <button @onclick="@(() => DoAction("Relay1", "True"))" style=" border: 1px solid;color:white;background:blue; padding: 5px 10px; border-radius: 15px; color: black; text-decoration: none;">Relay 1 On</button>
-                        <button @onclick="@(() => DoAction("Relay1", "False"))" style=" border: 1px solid;color:white;background:red; padding: 5px 10px; border-radius: 15px; color: black; text-decoration: none;">Relay 1 Off</button>
+                        <button @onclick="@(() => DoAction("Relay1", "True"))" class="btn btn-info">Relay 1 On</button>
+                        <button @onclick="@(() => DoAction("Relay1", "False"))" class="btn btn-danger">Relay 1 Off</button>
                     </div>
                     <div class="uk-button-group">
-                        <button @onclick="@(() => DoAction("Relay2", "True"))" style=" border: 1px solid;color:white;background:blue; padding: 5px 10px; border-radius: 15px; color: black; text-decoration: none;">Relay 2 On</button>
-                        <button @onclick="@(() => DoAction("Relay2", "False"))" style=" border: 1px solid;color:white;background:red; padding: 5px 10px; border-radius: 15px; color: black; text-decoration: none;">Relay 2 Off</button>
+                        <button @onclick="@(() => DoAction("Relay2", "True"))" class="btn btn-info mt-1">Relay 2 On</button>
+                        <button @onclick="@(() => DoAction("Relay2", "False"))" class="btn btn-danger mt-1">Relay 2 Off</button>
                     </div>
                 </td>
             </tr>
@@ -93,12 +92,12 @@
                 <td>Aquascape</td>
                 <td>
                     <div class="uk-button-group">
-                        <button @onclick="@(() => DoAction("WaterIn", "http://192.168.0.99/PIN0_ON"))" style=" border: 1px solid;color:white;background:blue; padding: 5px 10px; border-radius: 15px; color: black; text-decoration: none;">Water In Start</button>
-                        <button @onclick="@(() => DoAction("WaterIn", "http://192.168.0.99/PIN0_OFF"))" style=" border: 1px solid;color:white;background:red; padding: 5px 10px; border-radius: 15px; color: black; text-decoration: none;">Water In Stop</button>
+                        <button @onclick="@(() => DoAction("WaterIn", "http://192.168.0.99/PIN0_ON"))" class="btn btn-info">Water In Start</button>
+                        <button @onclick="@(() => DoAction("WaterIn", "http://192.168.0.99/PIN0_OFF"))" class="btn btn-danger">Water In Stop</button>
                     </div>
                     <div class="uk-button-group">
-                        <button @onclick="@(() => DoAction("WaterOut", "http://192.168.0.99/PIN1_ON"))" style=" border: 1px solid;color:white;background:blue; padding: 5px 10px; border-radius: 15px; color: black; text-decoration: none;">Water Out Start</button>
-                        <button @onclick="@(() => DoAction("WaterOut", "http://192.168.0.99/PIN1_OFF"))" style=" border: 1px solid;color:white;background:red; padding: 5px 10px; border-radius: 15px; color: black; text-decoration: none;">Water Out Stop</button>
+                        <button @onclick="@(() => DoAction("WaterOut", "http://192.168.0.99/PIN1_ON"))" class="btn btn-info mt-1">Water Out Start</button>
+                        <button @onclick="@(() => DoAction("WaterOut", "http://192.168.0.99/PIN1_OFF"))" class="btn btn-danger mt-1">Water Out Stop</button>
                     </div>
                 </td>
             </tr>
@@ -107,12 +106,12 @@
                 <td>Aquaponic</td>
                 <td>
                     <div class="uk-button-group">
-                        <button @onclick="@(() => DoAction("RelayAqua1", "True"))" style=" border: 1px solid;color:white;background:blue; padding: 5px 10px; border-radius: 15px; color: black; text-decoration: none;">Relay 1 On</button>
-                        <button @onclick="@(() => DoAction("RelayAqua1", "False"))" style=" border: 1px solid;color:white;background:red; padding: 5px 10px; border-radius: 15px; color: black; text-decoration: none;">Relay 1 Off</button>
+                        <button @onclick="@(() => DoAction("RelayAqua1", "True"))" class="btn btn-info">Relay 1 On</button>
+                        <button @onclick="@(() => DoAction("RelayAqua1", "False"))" class="btn btn-danger">Relay 1 Off</button>
                     </div>
                     <div class="uk-button-group">
-                        <button @onclick="@(() => DoAction("RelayAqua2", "True"))" style=" border: 1px solid;color:white;background:blue; padding: 5px 10px; border-radius: 15px; color: black; text-decoration: none;">Relay 2 On</button>
-                        <button @onclick="@(() => DoAction("RelayAqua2", "False"))" style=" border: 1px solid;color:white;background:red; padding: 5px 10px; border-radius: 15px; color: black; text-decoration: none;">Relay 2 Off</button>
+                        <button @onclick="@(() => DoAction("RelayAqua2", "True"))" class="btn btn-info mt-1">Relay 2 On</button>
+                        <button @onclick="@(() => DoAction("RelayAqua2", "False"))" class="btn btn-danger mt-1">Relay 2 Off</button>
                     </div>
                 </td>
             </tr>
@@ -140,12 +139,12 @@
                     </div>
                     <div></div>
                     <div class="uk-button-group">
-                        <button @onclick="@(() => DoAction("DraineageOn"))" style=" border: 1px solid;color:white;background:blue; padding: 5px 10px; border-radius: 15px; color: black; text-decoration: none;">Drain On</button>
-                        <button @onclick="@(() => DoAction("DraineageOff"))" style=" border: 1px solid;color:white;background:red; padding: 5px 10px; border-radius: 15px; color: black; text-decoration: none;">Drain Off</button>
+                        <button @onclick="@(() => DoAction("DraineageOn"))" class="btn btn-info">Drain On</button>
+                        <button @onclick="@(() => DoAction("DraineageOff"))" class="btn btn-danger">Drain Off</button>
                     </div>
                     <div class="uk-button-group">
-                        <button @onclick="@(() => DoAction("DraineageFillOn"))" style=" border: 1px solid;color:white;background:blue; padding: 5px 10px; border-radius: 15px; color: black; text-decoration: none;">Fill Water On</button>
-                        <button @onclick="@(() => DoAction("DraineageFillOff"))" style=" border: 1px solid;color:white;background:red; padding: 5px 10px; border-radius: 15px; color: black; text-decoration: none;">Fill Water Off</button>
+                        <button @onclick="@(() => DoAction("DraineageFillOn"))" class="btn btn-info mt-1">Fill Water On</button>
+                        <button @onclick="@(() => DoAction("DraineageFillOff"))" class="btn btn-danger mt-1">Fill Water Off</button>
                     </div>
                 </td>
             </tr>
@@ -153,6 +152,7 @@
     </table>
 </div>
 @code {
+  
     MqttService iot;
 
     string TxtInterval = string.Empty;

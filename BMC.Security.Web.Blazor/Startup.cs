@@ -105,6 +105,9 @@ namespace BMC.Security.Web.Blazor
                 endpoints.MapBlazorHub();
                 endpoints.MapFallbackToPage("/_Host");
             });
+            Encryption enc = new Encryption();
+            var pass = enc.Encrypt("123qweasd");
+            Console.WriteLine(pass);
         }
     }
 }

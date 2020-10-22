@@ -15,7 +15,7 @@ namespace BMC.Security.Web.Blazor.Pages
             await HttpContext
                 .SignOutAsync(
                 CookieAuthenticationDefaults.AuthenticationScheme);
-            return LocalRedirect(Url.Content("~/"));
+            return LocalRedirect(Url.Content("~/auth/login"));
         }
     }
 }
