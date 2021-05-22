@@ -9,9 +9,9 @@ namespace SarahApp
    public  class APPCONTANTS
     {
         //cognitive service
-        public const string MQTT_SERVER = "110.35.82.86";//"13.76.156.239";//"23.98.70.88";//"cloud.makestro.com"; //"cloud.makestro.com";
-        public const string MQTT_USER = "loradev_mqtt";
-        public const string MQTT_PASS = "test123";
+        public const string MQTT_SERVER = "broker.emqx.io";//"121302208641.ip-dynamic.com";//"34.87.47.181";//"13.76.156.239";//"23.98.70.88";//"cloud.makestro.com"; //"cloud.makestro.com";
+        public const string MQTT_USER = "mqtt_01";//"loradev_mqtt";
+        public const string MQTT_PASS = "MVBnn0012";//"test123";
         public const string BING_API_KEY = "7cbea11a8b5344f08b2b5db408f91ed4";
         public const string COMPUTERVISION_KEY = "fab29c974d2d4006a5ed0d05ca503196";// "274ebc67bd4441de91732ef1aaa3f00a";//"fab29c974d2d4006a5ed0d05ca503196";
         public const string LUIS_APP_ID = "0aa11a64-a01f-40b1-afb6-2daffaabadc1";
