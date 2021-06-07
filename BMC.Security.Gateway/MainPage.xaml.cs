@@ -38,9 +38,9 @@ namespace BMC.Security.Gateway
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        static string IPBrokerAddress = "110.35.82.86"; //ConfigurationManager.AppSettings["MqttHost"];azure - 13.76.156.239";// 
-        static string ClientUser = "loradev_mqtt"; //ConfigurationManager.AppSettings["MqttUser"];
-        static string ClientPass = "test123";//ConfigurationManager.AppSettings["MqttPass"];
+        static string IPBrokerAddress = "broker.emqx.io";//"121302208641.ip-dynamic.com";// "34.87.47.181";//"110.35.82.86"; //ConfigurationManager.AppSettings["MqttHost"];azure - 13.76.156.239";// 
+        static string ClientUser = "mqtt_01";//"loradev_mqtt"; //ConfigurationManager.AppSettings["MqttUser"];
+        static string ClientPass = "MVBnn0012";//"test123";//ConfigurationManager.AppSettings["MqttPass"];
         static string clientId = "bmc-gateway-2";//Guid.NewGuid().ToString();
         static bool NeedToReconnect = false;
         private GIS.FEZHAT hat;
