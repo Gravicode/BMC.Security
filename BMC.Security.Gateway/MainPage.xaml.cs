@@ -294,8 +294,8 @@ namespace BMC.Security.Gateway
                 }
                 await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, async () =>
                 {
-                    TxtLight.Text = light.ToString("n2") ;
-                    TxtTemp.Text = temp.ToString("n1") ;
+                    TxtLight.Text = light.ToString("n2");
+                    TxtTemp.Text = temp.ToString("n1");
                     TxtAccel.Text = x.ToString("n3") + "," + y.ToString("n3") + "," + z.ToString("n3");
                     TxtTimeUpdate.Text = DateTime.Now.ToString("dd/MM/yy HH:mm:ss");
                     generateJoke();
@@ -317,7 +317,44 @@ namespace BMC.Security.Gateway
             var joke = await JokeHelper.GetJoke();
             if (joke != null) TxtJoke.Text = joke.value.joke;
         }
+        async Task ActivateEmergencyMode(string[] ipdevices)
+        {
+            if (ipdevices == null || ipdevices.Length <= 0) return;
+            var iteration = 1;
 
+            for (int i = 0; i < iteration; i++)
+            {
+
+                PlaySound("tornado.mp3");
+
+                //turn on
+                foreach (var ip in ipdevices)
+                {
+                    var url = $"http://{ip}/cm?cmnd=Power%20On";
+                    RunUrl(url);
+                }
+                //delay
+                Thread.Sleep(10000);
+                //turn off
+                foreach (var ip in ipdevices)
+                {
+                    var url = $"http://{ip}/cm?cmnd=Power%20Off";
+                    RunUrl(url);
+                }
+                //delay
+                Thread.Sleep(10000);
+            }
+
+        }
+
+        async void RunUrl(string url)
+        {
+            var res = await OpenUrl(url);
+            await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, async () =>
+            {
+                TxtStatus.Text = $"open : {url} => {res}";
+            });
+        }
         // Handle the direct method call
         private async Task<string> DoAction(string Data)
         {
@@ -331,6 +368,9 @@ namespace BMC.Security.Gateway
                 {
                     case "PlaySound":
                         PlaySound(action.Params[0]);
+                        break;
+                    case "Emergency":
+                        await ActivateEmergencyMode(action.Params);
                         break;
                     case "ChangeLED":
                         ChangeLED(GIS.FEZHAT.Color.Red);

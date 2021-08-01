@@ -116,13 +116,38 @@ namespace BMC.Security.Tools
     }
     public class MailService
     {
+
+        public static void SetTemplate(string TemplatePath, bool IsLinux = false)
+        {
+            if (!System.IO.File.Exists(TemplatePath)) return;
+            var _temp = string.Empty;
+            if (IsLinux)
+            {
+                _temp = TemplatePath.Replace("\\", "/");
+            }
+            else
+            {
+                _temp = TemplatePath;
+            }
+            TemplateHTML = System.IO.File.ReadAllText(_temp);
+        }
+
+        public static string FormatWithTemplate(string subject, string message)
+        {
+            return string.IsNullOrEmpty(TemplateHTML) ? $"{subject} <br/> {message}" : TemplateHTML.Replace("[SUBJECT]", subject).Replace("[MESSAGE]", message);
+        }
+
+        public static string TemplateHTML { get; set; }
+        public static string SendGridKey { get; set; }
         public static string MailUser { get; set; }
         public static string MailPassword { get; set; }
         public static int MailPort { get; set; }
         public static string MailServer { get; set; }
+
+        public static bool UseSendGrid { set; get; } = true;
         public static async Task<bool> SendEmail(string subject, string message, string toemail, bool IsHTML = true)
         {
-            var NewTask = new Task<bool>(() =>
+            if (UseSendGrid)
             {
                 //string smtpServer = "smtp-mail.outlook.com";
 
@@ -131,27 +156,11 @@ namespace BMC.Security.Tools
 
                 try
                 {
-                    //Send teh High priority Email  
-                    EmailManager mailMan = new EmailManager(MailServer, MailPort);
+                    message = FormatWithTemplate(subject, message);
+                    var hasil = await SendGridService.SendEmail(SendGridKey, subject, UserMail, toemail, message);
 
-                    EmailSendConfigure myConfig = new EmailSendConfigure();
-                    // replace with your email userName  
-                    myConfig.ClientCredentialUserName = UserMail;
-                    // replace with your email account password
-                    myConfig.ClientCredentialPassword = UserPassword;
-                    myConfig.TOs = new string[] { toemail };
-                    myConfig.CCs = new string[] { };
-                    myConfig.From = UserMail;
-                    myConfig.FromDisplayName = "[Toko Online] - Jamaah";
-                    myConfig.Priority = System.Net.Mail.MailPriority.Normal;
-                    myConfig.Subject = subject;
-
-                    EmailContent myContent = new EmailContent();
-                    myContent.Content = message;
-                    myContent.IsHtml = IsHTML;
-                    mailMan.SendMail(myConfig, myContent);
                     Console.WriteLine("email was sent successfully!");
-                    return true;
+                    return hasil;
                 }
                 catch (Exception ex)
                 {
@@ -163,9 +172,57 @@ namespace BMC.Security.Tools
                     //LogHelpers.WriteLog();
                     return false;
                 }
-            });
-            NewTask.Start();
-            return await NewTask;
+
+
+            }
+            else
+            {
+                var NewTask = new Task<bool>(() =>
+                {
+                    //string smtpServer = "smtp-mail.outlook.com";
+
+                    var UserMail = MailUser;//"silpo@outlook.co.id";
+                    var UserPassword = MailPassword;//"Balittanah123";
+
+                    try
+                    {
+                        //Send teh High priority Email  
+                        EmailManager mailMan = new EmailManager(MailServer, MailPort);
+
+                        EmailSendConfigure myConfig = new EmailSendConfigure();
+                        // replace with your email userName  
+                        myConfig.ClientCredentialUserName = UserMail;
+                        // replace with your email account password
+                        myConfig.ClientCredentialPassword = UserPassword;
+                        myConfig.TOs = new string[] { toemail };
+                        myConfig.CCs = new string[] { };
+                        myConfig.From = UserMail;
+                        myConfig.FromDisplayName = "[Toko Online] - Jamaah";
+                        myConfig.Priority = System.Net.Mail.MailPriority.Normal;
+                        myConfig.Subject = subject;
+
+                        EmailContent myContent = new EmailContent();
+                        myContent.Content = message;
+                        myContent.IsHtml = IsHTML;
+                        mailMan.SendMail(myConfig, myContent);
+                        Console.WriteLine("email was sent successfully!");
+                        return true;
+                    }
+                    catch (Exception ex)
+                    {
+                        //Console.WriteLine("failed to send email with the following error:");
+                        //Console.WriteLine(ep.Message);
+                        //LogHelpers.source = typeof(EmailService).ToString();
+                        //LogHelpers.message = "failed to send email with the following error:" + ex.Message;
+                        //LogHelpers.user = CommonWeb.GetCurrentUser();
+                        //LogHelpers.WriteLog();
+                        return false;
+                    }
+                });
+                NewTask.Start();
+                return await NewTask;
+            }
+
         }
     }
 }

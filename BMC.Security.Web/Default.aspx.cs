@@ -14,7 +14,7 @@ namespace BMC.Security.Web
         static MqttService iot;
         protected void Page_Load(object sender, EventArgs e)
         {
-            if(!IsPostBack)
+            if (!IsPostBack)
                 iot = new MqttService();
             BtnPass.Click += BtnPass_Click;
             BtnMonster.Click += DoAction;
@@ -23,9 +23,9 @@ namespace BMC.Security.Web
             BtnScream.Click += DoAction;
             BtnLedOff.Click += DoAction;
             BtnLedOn.Click += DoAction;
-            BtnCCTVOn.Click+= DoAction;
-            BtnCCTVOff.Click+= DoAction;
-            BtnCCTVInterval.Click+= DoAction;
+            BtnCCTVOn.Click += DoAction;
+            BtnCCTVOff.Click += DoAction;
+            BtnCCTVInterval.Click += DoAction;
             BtnRelay1.Click += DoAction;
             BtnRelay1Off.Click += DoAction;
             BtnRelay2.Click += DoAction;
@@ -50,7 +50,7 @@ namespace BMC.Security.Web
                 var data = DeviceData.GetAllDevices();
                 RptControlDevice.DataSource = data;
                 RptControlDevice.DataBind();
-                           
+
             }
         }
 
@@ -64,7 +64,7 @@ namespace BMC.Security.Web
                 switch (tipe)
                 {
                     case "Monster":
-                        await iot.InvokeMethod("BMCSecurityBot","PlaySound", new string[] { "monster.mp3" });
+                        await iot.InvokeMethod("BMCSecurityBot", "PlaySound", new string[] { "monster.mp3" });
                         break;
                     case "Scream":
                         await iot.InvokeMethod("BMCSecurityBot", "PlaySound", new string[] { "scream.mp3" });
@@ -80,6 +80,13 @@ namespace BMC.Security.Web
                         break;
                     case "LEDOFF":
                         await iot.InvokeMethod("BMCSecurityBot", "TurnOffLED", new string[] { "" });
+                        break;
+                    case "Emergency":
+                        {
+                            var datas = DeviceData.GetAllDevices().Select(x => x.IP).ToList();
+                            var devices = string.Join(",",datas);
+                            await iot.InvokeMethod("BMCSecurityBot", "Emergency", devices);
+                        }
                         break;
 
                     case "DEVICEON":
@@ -116,7 +123,7 @@ namespace BMC.Security.Web
                     case "WaterOut":
                         await iot.InvokeMethod("BMCSecurityBot", "OpenURL", new string[] { btn.CommandArgument });
                         break;
-                    
+
                     case "RelayAqua1":
                         await iot.InvokeMethod2("bmc/aquaponic/control", "Relay1", new string[] { btn.CommandArgument });
                         break;
@@ -264,15 +271,15 @@ namespace BMC.Security.Web
 
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                TxtStatus.Text = "ERROR:"+ex.Message + "_" + ex.StackTrace;
+                TxtStatus.Text = "ERROR:" + ex.Message + "_" + ex.StackTrace;
             }
         }
 
         private void BtnPass_Click(object sender, EventArgs e)
         {
-          if(TxtPass.Text == "123qweasd")
+            if (TxtPass.Text == "123qweasd")
             {
                 ControlPanel.Visible = true;
                 PassPanel.Visible = false;

@@ -191,6 +191,12 @@
                                     </div>
                                 </td>
                             </tr>
+                             <tr>
+                                <td>13</td>
+                                <td>Emergency</td>
+                                <td>
+                                    <asp:Button CssClass="uk-button uk-button-danger" CommandName="Emergency" ID="BtnEmergency" runat="server" Text="Emergency Mode" /></td>
+                            </tr>
                         </tbody>
                     </table>
                     <table class="uk-table">

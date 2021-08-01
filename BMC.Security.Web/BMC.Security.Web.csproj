@@ -196,6 +196,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Site.css" />
+    <Content Include="Content\template\email.html" />
     <Content Include="Default.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -313,6 +314,12 @@
     <Compile Include="Svc\Absensi.ashx.cs">
       <DependentUpon>Absensi.ashx</DependentUpon>
     </Compile>
+    <Compile Include="Svc\sendmail.ashx.cs">
+      <DependentUpon>sendmail.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="Svc\sms.ashx.cs">
+      <DependentUpon>sms.ashx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -322,6 +329,8 @@
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
     <Content Include="Svc\Absensi.ashx" />
+    <Content Include="Svc\sms.ashx" />
+    <Content Include="Svc\sendmail.ashx" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -333,6 +342,10 @@
     <ProjectReference Include="..\BMC.Security.Models\BMC.Security.Models.csproj">
       <Project>{1d7cd259-d7d3-4a2f-87ce-2a9714eed9d3}</Project>
       <Name>BMC.Security.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BMC.Security.Tools\BMC.Security.Tools.csproj">
+      <Project>{5ae77613-e65d-4e2e-9921-6f0aafa8b5e0}</Project>
+      <Name>BMC.Security.Tools</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
