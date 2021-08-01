@@ -320,7 +320,7 @@ namespace BMC.Security.Gateway
         async Task ActivateEmergencyMode(string[] ipdevices)
         {
             if (ipdevices == null || ipdevices.Length <= 0) return;
-            var iteration = 1;
+            var iteration = 3;
 
             for (int i = 0; i < iteration; i++)
             {
@@ -334,7 +334,7 @@ namespace BMC.Security.Gateway
                     RunUrl(url);
                 }
                 //delay
-                Thread.Sleep(10000);
+                Thread.Sleep(5000);
                 //turn off
                 foreach (var ip in ipdevices)
                 {
@@ -342,7 +342,23 @@ namespace BMC.Security.Gateway
                     RunUrl(url);
                 }
                 //delay
-                Thread.Sleep(10000);
+                Thread.Sleep(5000);
+                //turn on
+                foreach (var ip in ipdevices)
+                {
+                    var url = $"http://{ip}/cm?cmnd=Power%20On";
+                    RunUrl(url);
+                }
+                //delay
+                Thread.Sleep(5000);
+                //turn off
+                foreach (var ip in ipdevices)
+                {
+                    var url = $"http://{ip}/cm?cmnd=Power%20Off";
+                    RunUrl(url);
+                }
+                //delay
+                Thread.Sleep(5000);
             }
 
         }
