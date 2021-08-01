@@ -15,8 +15,8 @@ namespace BMC.Security.Web.Helpers
         {
             return new List<DeviceData>()
             {
-                new DeviceData (){ ID=1, Name="Lampu Depan WC", IP="192.168.1.27" },
-                new DeviceData (){ ID=2, Name="Lampu Kamar Atas", IP="192.168.1.25" },
+                new DeviceData (){ ID=1, Name="Lampu Depan WC", IP="192.168.1.25" },
+                new DeviceData (){ ID=2, Name="Lampu Kamar Atas", IP="192.168.1.27" },
                 new DeviceData (){ ID=3, Name="Lampu Tengah", IP="192.168.1.28" },
                 new DeviceData (){ ID=4, Name="Kipas Musolla", IP="192.168.1.31" },
                 new DeviceData (){ ID=5, Name="Kipas Printer 3D", IP="192.168.1.32" },
