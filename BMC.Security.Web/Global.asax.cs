@@ -19,7 +19,10 @@ namespace BMC.Security.Web
             MailService.MailPassword = ConfigurationManager.AppSettings["MailPassword"];
             MailService.MailServer = ConfigurationManager.AppSettings["MailServer"];
             MailService.MailPort = int.Parse(ConfigurationManager.AppSettings["MailPort"]);
-            MailService.SetTemplate(ConfigurationManager.AppSettings["TemplatePath"]);
+            var tempPath = ConfigurationManager.AppSettings["TemplatePath"];
+            tempPath = Server.MapPath(tempPath);
+
+            MailService.SetTemplate(tempPath);
             MailService.SendGridKey = ConfigurationManager.AppSettings["SendGridKey"];
             MailService.UseSendGrid = true;
 

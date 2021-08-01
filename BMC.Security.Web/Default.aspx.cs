@@ -45,6 +45,8 @@ namespace BMC.Security.Web
             BtnDrainageFillOn.Click += DoAction;
             BtnDrainageFillOff.Click += DoAction;
 
+            BtnEmergency.Click += DoAction;
+
             if (!IsPostBack)
             {
                 var data = DeviceData.GetAllDevices();
@@ -83,9 +85,9 @@ namespace BMC.Security.Web
                         break;
                     case "Emergency":
                         {
-                            var datas = DeviceData.GetAllDevices().Select(x => x.IP).ToList();
-                            var devices = string.Join(",",datas);
-                            await iot.InvokeMethod("BMCSecurityBot", "Emergency", devices);
+                            var datas = DeviceData.GetAllDevices().Where(x=>x.Name.Contains("WC") || x.Name.Contains("Tamu")).Select(x => x.IP).ToList();
+                          
+                            await iot.InvokeMethod("BMCSecurityBot", "Emergency", datas.ToArray());
                         }
                         break;
 

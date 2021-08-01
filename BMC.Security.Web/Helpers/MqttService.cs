@@ -40,7 +40,7 @@ namespace BMC.Security.Web.Helpers
             MqttClient.MqttMsgPublishReceived += client_MqttMsgPublishReceived;
 
             // use a unique id as client id, each time we start the application
-            var clientId = "bmc-home-web";//Guid.NewGuid().ToString();
+            var clientId = "bmc-home-web1";//Guid.NewGuid().ToString();
 
             MqttClient.Connect(clientId, ClientUser, ClientPass);
             Console.WriteLine("MQTT is connected");
