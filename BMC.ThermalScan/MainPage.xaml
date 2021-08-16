@@ -42,8 +42,12 @@
                     <ColumnDefinition Width="120"/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0" HorizontalAlignment="Center">
+                    <Button Content="Debug" Click="Button_Click" FontSize="20" Margin="10 10 10 10" VerticalAlignment="Center"/>
+                    <Button Content="Shutdown" Click="BtnShutdown_Click" Name="BtnShutdown" FontSize="20" Margin="10 10 10 10" VerticalAlignment="Center"/>
+                    <Button Content="Restart" Click="BtnRestart_Click" Name="BtnRestart" FontSize="20" Margin="10 10 10 10" VerticalAlignment="Center"/>
 
-                <Button Content="Debug" Click="Button_Click" FontSize="18" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </StackPanel>
                 <TextBlock Name="tbTemparature" Text="-.- ℃" FontSize="70" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Black"/>
             </Grid>
 

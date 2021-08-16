@@ -147,10 +147,22 @@ namespace BMC.ThermalScan
             ThermCam.Dispose();
             ThermCam = null;
         }
+
+        private void BtnShutdown_Click(object sender, RoutedEventArgs e)
+        {
+            Windows.System.ShutdownManager.BeginShutdown(Windows.System.ShutdownKind.Shutdown, TimeSpan.FromSeconds(1));
+
+        }
+
+        private void BtnRestart_Click(object sender, RoutedEventArgs e)
+        {
+            Windows.System.ShutdownManager.BeginShutdown(Windows.System.ShutdownKind.Restart, TimeSpan.FromSeconds(1));
+
+        }
     }
 
 
-   
+
 
     public class SensorData
     {
