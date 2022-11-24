@@ -1,0 +1,47 @@
+﻿@inherits LayoutComponentBase
+@using Blazored.Toast.Configuration
+@inject IJSRuntime IJS
+@page "/auth/{Slug}"
+
+<div class="fw-container container-xl ">
+  
+    <div class="pb-4 px-5">
+        <div class="row pt-5 justify-content-center">
+            @Body
+        </div>
+    </div>
+</div>
+
+<BlazoredToasts Position="ToastPosition.BottomRight"
+                Timeout="10"
+                SuccessClass="success-toast-override"
+                ErrorClass="fa fa-bug" />
+
+@code{
+    [Parameter]
+    public string Slug { get; set; } = "login";
+
+    protected override void OnParametersSet()
+    {
+        /*
+        // pull out the "Slug" parameter from the route data
+        object slug = null;
+        if ((this.Body.Target as RouteView)?.RouteData.RouteValues?.TryGetValue("Slug", out slug) == true)
+        {
+            //Slug = slug?.ToString();
+        }
+        */
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await IJS.InvokeAsync<object>("LoadSBJS");
+        }
+
+
+
+    }
+}
+   

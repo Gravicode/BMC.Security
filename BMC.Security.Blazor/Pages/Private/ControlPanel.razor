@@ -1,0 +1,377 @@
+﻿@using BMC.Security.Blazor.Helpers
+@inject MqttService iot
+<h2>
+    <b>BMSPACE SECURITY CONTROL 1.0</b>
+</h2>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>NO</th>
+            <th>DESCRIPTION</th>
+            <th>ACTION</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>1.</td>
+            <td>Keluarkan suara monster</td>
+            <td><button @onclick="@(() => DoAction("Monster"))" class="btn btn-info">PLAY</button></td>
+        </tr>
+        <tr>
+            <td>2.</td>
+            <td>Keluarkan suara tornado</td>
+            <td><button @onclick="@(() => DoAction("Tornado"))" class="btn btn-info">PLAY</button></td>
+        </tr>
+        <tr>
+            <td>3.</td>
+            <td>Keluarkan suara polisi</td>
+            <td><button @onclick="@(() => DoAction("Police"))" class="btn btn-info">PLAY</button></td>
+        </tr>
+        <tr>
+            <td>4.</td>
+            <td>Keluarkan suara teriakan</td>
+            <td><button @onclick="@(() => DoAction("Scream"))" class="btn btn-info">PLAY</button></td>
+        </tr>
+        <tr>
+            <td>4.</td>
+            <td>LED</td>
+            <td>
+                <button @onclick="@(() => DoAction("LEDON"))" class="btn btn-info">TURN</button>
+                <button @onclick="@(() => DoAction("LEDOFF"))" class="btn btn-danger">OFF</button>
+            </td>
+        </tr>
+        <tr>
+            <td>5.</td>
+            <td>CCTV Watching Status</td>
+            <td>
+                <button @onclick="@(() => DoAction("CCTVStatus", "True"))" class="btn btn-info">TURN</button>
+                <button @onclick="@(() => DoAction("CCTVStatus", "False"))" class="btn btn-danger">OFF</button>
+            </td>
+        </tr>
+        <tr>
+            <td>6.</td>
+            <td>CCTV Watcher Update Time</td>
+            <td>
+                <table class="uk-table">
+                    <tr>
+                        <td>Interval : </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="text" @bind="TxtInterval" />
+                            <asp:TextBox ID="TxtInterval" CssClass="uk-input" TextMode="Number" runat="server"></asp:TextBox>
+                            Detik
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <button @onclick="@(() => DoAction("CCTVUpdateTime"))" class="btn btn-info">Set waktu</button>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>7.</td>
+            <td>Hidroponik</td>
+            <td>
+                <div class="uk-button-group">
+                    <button @onclick="@(() => DoAction("Relay1", "True"))" class="btn btn-info">Relay 1 On</button>
+                    <button @onclick="@(() => DoAction("Relay1", "False"))" class="btn btn-danger">Relay 1 Off</button>
+                </div>
+                <div class="uk-button-group">
+                    <button @onclick="@(() => DoAction("Relay2", "True"))" class="btn btn-info mt-1">Relay 2 On</button>
+                    <button @onclick="@(() => DoAction("Relay2", "False"))" class="btn btn-danger mt-1">Relay 2 Off</button>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>8.</td>
+            <td>Aquascape</td>
+            <td>
+                <div class="uk-button-group">
+                    <button @onclick="@(() => DoAction("WaterIn", "http://192.168.0.99/PIN0_ON"))" class="btn btn-info">Water In Start</button>
+                    <button @onclick="@(() => DoAction("WaterIn", "http://192.168.0.99/PIN0_OFF"))" class="btn btn-danger">Water In Stop</button>
+                </div>
+                <div class="uk-button-group">
+                    <button @onclick="@(() => DoAction("WaterOut", "http://192.168.0.99/PIN1_ON"))" class="btn btn-info mt-1">Water Out Start</button>
+                    <button @onclick="@(() => DoAction("WaterOut", "http://192.168.0.99/PIN1_OFF"))" class="btn btn-danger mt-1">Water Out Stop</button>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>9.</td>
+            <td>Aquaponic</td>
+            <td>
+                <div class="uk-button-group">
+                    <button @onclick="@(() => DoAction("RelayAqua1", "True"))" class="btn btn-info">Relay 1 On</button>
+                    <button @onclick="@(() => DoAction("RelayAqua1", "False"))" class="btn btn-danger">Relay 1 Off</button>
+                </div>
+                <div class="uk-button-group">
+                    <button @onclick="@(() => DoAction("RelayAqua2", "True"))" class="btn btn-info mt-1">Relay 2 On</button>
+                    <button @onclick="@(() => DoAction("RelayAqua2", "False"))" class="btn btn-danger mt-1">Relay 2 Off</button>
+                </div>
+            </td>
+        </tr>
+        <!-- Automation Drainage -->
+        <tr>
+            <td>10.</td>
+            <td>Automation Drainage</td>
+            <td>
+                <div>
+                    <input type="checkbox" @bind="DrainRelay1" /> Bucket 1
+                    <input type="checkbox" @bind="DrainRelay2" /> Bucket 2
+                    <input type="checkbox" @bind="DrainRelay3" /> Bucket 3
+                    <input type="checkbox" @bind="DrainRelay4" /> Bucket 4
+                    <input type="checkbox" @bind="DrainRelay5" /> Bucket 5
+                    <input type="checkbox" @bind="DrainRelay6" /> Bucket 6
+                    <input type="checkbox" @bind="DrainRelay7" /> Bucket 7
+                </div>
+                <div>
+                    <input type="checkbox" @bind="DrainRelay8" /> Bucket 8
+                    <input type="checkbox" @bind="DrainRelay9" /> Bucket 9
+                    <input type="checkbox" @bind="DrainRelay10" /> Bucket 10
+                    <input type="checkbox" @bind="DrainRelay11" /> Bucket 11
+                    <input type="checkbox" @bind="DrainRelay12" /> Bucket 12
+                    <input type="checkbox" @bind="DrainRelay13" /> Bucket 13
+                </div>
+                <div></div>
+                <div class="uk-button-group">
+                    <button @onclick="@(() => DoAction("DraineageOn"))" class="btn btn-info">Drain On</button>
+                    <button @onclick="@(() => DoAction("DraineageOff"))" class="btn btn-danger">Drain Off</button>
+                </div>
+                <div class="uk-button-group">
+                    <button @onclick="@(() => DoAction("DraineageFillOn"))" class="btn btn-info mt-1">Fill Water On</button>
+                    <button @onclick="@(() => DoAction("DraineageFillOff"))" class="btn btn-danger mt-1">Fill Water Off</button>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+@code {
+
+
+
+    string TxtInterval = string.Empty;
+    bool DrainRelay1 = false;
+    bool DrainRelay2 = false;
+    bool DrainRelay3 = false;
+    bool DrainRelay4 = false;
+    bool DrainRelay5 = false;
+    bool DrainRelay6 = false;
+    bool DrainRelay7 = false;
+    bool DrainRelay8 = false;
+    bool DrainRelay9 = false;
+    bool DrainRelay10 = false;
+    bool DrainRelay11 = false;
+    bool DrainRelay12 = false;
+    bool DrainRelay13 = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+
+    }
+
+    async Task DoAction(string commandName, string argument = "")
+    {
+        switch (commandName)
+        {
+            case "Monster":
+                await iot.InvokeMethod("BMCSecurityBot", "PlaySound", new string[] { "monster.mp3" });
+                break;
+            case "Scream":
+                await iot.InvokeMethod("BMCSecurityBot", "PlaySound", new string[] { "scream.mp3" });
+                break;
+            case "Tornado":
+                await iot.InvokeMethod("BMCSecurityBot", "PlaySound", new string[] { "tornado.mp3" });
+                break;
+            case "Police":
+                await iot.InvokeMethod("BMCSecurityBot", "PlaySound", new string[] { "police.mp3" });
+                break;
+            case "LEDON":
+                await iot.InvokeMethod("BMCSecurityBot", "ChangeLED", new string[] { "RED" });
+                break;
+            case "LEDOFF":
+                await iot.InvokeMethod("BMCSecurityBot", "TurnOffLED", new string[] { "" });
+                break;
+            case "DEVICEON":
+                {
+                    //string DeviceID = $"Device{btn.CommandArgument}IP";
+                    string URL = $"http://{argument}/cm?cmnd=Power%20On";
+                    await iot.InvokeMethod("BMCSecurityBot", "OpenURL", new string[] { URL });
+                }
+                break;
+            case "DEVICEOFF":
+                {
+                    //string DeviceID = $"Device{btn.CommandArgument}IP";
+                    string URL = $"http://{argument}/cm?cmnd=Power%20Off";
+                    await iot.InvokeMethod("BMCSecurityBot", "OpenURL", new string[] { URL });
+                }
+                break;
+            case "CCTVStatus":
+                await iot.InvokeMethod("CCTV_Watcher", "CCTVStatus", new string[] { argument });
+                break;
+            case "CCTVUpdateTime":
+                var interval = string.IsNullOrEmpty(TxtInterval) ? "10" : TxtInterval;
+                await iot.InvokeMethod("CCTV_Watcher", "CCTVUpdateTime", new string[] { interval });
+
+                break;
+            case "Relay1":
+                await iot.InvokeMethod2("bmc/hidroponic/control", "Relay1", new string[] { argument });
+                break;
+            case "Relay2":
+                await iot.InvokeMethod2("bmc/hidroponic/control", "Relay2", new string[] { argument });
+                break;
+            case "WaterIn":
+                await iot.InvokeMethod("BMCSecurityBot", "OpenURL", new string[] { argument });
+                break;
+            case "WaterOut":
+                await iot.InvokeMethod("BMCSecurityBot", "OpenURL", new string[] { argument });
+                break;
+
+            case "RelayAqua1":
+                await iot.InvokeMethod2("bmc/aquaponic/control", "Relay1", new string[] { argument });
+                break;
+            case "RelayAqua2":
+                await iot.InvokeMethod2("bmc/aquaponic/control", "Relay2", new string[] { argument });
+                break;
+            case "DraineageOn":
+                // neck
+                await iot.InvokeMethod3("bmc/autodrainage/relay16", "on"); // water
+                await iot.InvokeMethod3("bmc/autodrainage/relay15", "off"); // machine neck
+                await iot.InvokeMethod3("bmc/autodrainage/relay14", "off"); // machine
+
+                // mouth
+                if (DrainRelay1)
+                    await iot.InvokeMethod3("bmc/autodrainage/relay1", "off");
+                if (DrainRelay2)
+                    await iot.InvokeMethod3("bmc/autodrainage/relay2", "off");
+                if (DrainRelay3)
+                    await iot.InvokeMethod3("bmc/autodrainage/relay3", "off");
+                if (DrainRelay4)
+                    await iot.InvokeMethod3("bmc/autodrainage/relay4", "off");
+                if (DrainRelay5)
+                    await iot.InvokeMethod3("bmc/autodrainage/relay5", "off");
+                if (DrainRelay6)
+                    await iot.InvokeMethod3("bmc/autodrainage/relay6", "off");
+                if (DrainRelay7)
+                    await iot.InvokeMethod3("bmc/autodrainage/relay7", "off");
+                if (DrainRelay8)
+                    await iot.InvokeMethod3("bmc/autodrainage/relay8", "off");
+                if (DrainRelay9)
+                    await iot.InvokeMethod3("bmc/autodrainage/relay9", "off");
+                if (DrainRelay10)
+                    await iot.InvokeMethod3("bmc/autodrainage/relay10", "off");
+                if (DrainRelay11)
+                    await iot.InvokeMethod3("bmc/autodrainage/relay11", "off");
+                if (DrainRelay12)
+                    await iot.InvokeMethod3("bmc/autodrainage/relay12", "off");
+                if (DrainRelay13)
+                    await iot.InvokeMethod3("bmc/autodrainage/relay13", "off");
+                break;
+            case "DraineageOff":
+                // neck
+                await iot.InvokeMethod3("bmc/autodrainage/relay16", "on"); // water
+                await iot.InvokeMethod3("bmc/autodrainage/relay15", "on"); // machine neck
+                await iot.InvokeMethod3("bmc/autodrainage/relay14", "on"); // machine
+
+                // mouth
+                if (DrainRelay1)
+                    await iot.InvokeMethod3("bmc/autodrainage/relay1", "on");
+                if (DrainRelay2)
+                    await iot.InvokeMethod3("bmc/autodrainage/relay2", "on");
+                if (DrainRelay3)
+                    await iot.InvokeMethod3("bmc/autodrainage/relay3", "on");
+                if (DrainRelay4)
+                    await iot.InvokeMethod3("bmc/autodrainage/relay4", "on");
+                if (DrainRelay5)
+                    await iot.InvokeMethod3("bmc/autodrainage/relay5", "on");
+                if (DrainRelay6)
+                    await iot.InvokeMethod3("bmc/autodrainage/relay6", "on");
+                if (DrainRelay7)
+                    await iot.InvokeMethod3("bmc/autodrainage/relay7", "on");
+                if (DrainRelay8)
+                    await iot.InvokeMethod3("bmc/autodrainage/relay8", "on");
+                if (DrainRelay9)
+                    await iot.InvokeMethod3("bmc/autodrainage/relay9", "on");
+                if (DrainRelay10)
+                    await iot.InvokeMethod3("bmc/autodrainage/relay10", "on");
+                if (DrainRelay11)
+                    await iot.InvokeMethod3("bmc/autodrainage/relay11", "on");
+                if (DrainRelay12)
+                    await iot.InvokeMethod3("bmc/autodrainage/relay12", "on");
+                if (DrainRelay13)
+                    iot.InvokeMethod3("bmc/autodrainage/relay13", "on");
+                break;
+            case "DraineageFillOn":
+                // neck
+                await iot.InvokeMethod3("bmc/autodrainage/relay16", "off"); // water
+                await iot.InvokeMethod3("bmc/autodrainage/relay15", "on"); // machine neck
+                await iot.InvokeMethod3("bmc/autodrainage/relay14", "on"); // machine
+
+                // mouth
+                if (DrainRelay1)
+                    await iot.InvokeMethod3("bmc/autodrainage/relay1", "off");
+                if (DrainRelay2)
+                    await iot.InvokeMethod3("bmc/autodrainage/relay2", "off");
+                if (DrainRelay3)
+                    await iot.InvokeMethod3("bmc/autodrainage/relay3", "off");
+                if (DrainRelay4)
+                    await iot.InvokeMethod3("bmc/autodrainage/relay4", "off");
+                if (DrainRelay5)
+                    await iot.InvokeMethod3("bmc/autodrainage/relay5", "off");
+                if (DrainRelay6)
+                    await iot.InvokeMethod3("bmc/autodrainage/relay6", "off");
+                if (DrainRelay7)
+                    await iot.InvokeMethod3("bmc/autodrainage/relay7", "off");
+                if (DrainRelay8)
+                    await iot.InvokeMethod3("bmc/autodrainage/relay8", "off");
+                if (DrainRelay9)
+                    await iot.InvokeMethod3("bmc/autodrainage/relay9", "off");
+                if (DrainRelay10)
+                    await iot.InvokeMethod3("bmc/autodrainage/relay10", "off");
+                if (DrainRelay11)
+                    await iot.InvokeMethod3("bmc/autodrainage/relay11", "off");
+                if (DrainRelay12)
+                    await iot.InvokeMethod3("bmc/autodrainage/relay12", "off");
+                if (DrainRelay13)
+                    await iot.InvokeMethod3("bmc/autodrainage/relay13", "off");
+                break;
+            case "DraineageFillOff":
+                // neck
+                await iot.InvokeMethod3("bmc/autodrainage/relay16", "on"); // water
+                await iot.InvokeMethod3("bmc/autodrainage/relay15", "on"); // machine neck
+                await iot.InvokeMethod3("bmc/autodrainage/relay14", "on"); // machine
+
+                // mouth
+                if (DrainRelay1)
+                    await iot.InvokeMethod3("bmc/autodrainage/relay1", "on");
+                if (DrainRelay2)
+                    await iot.InvokeMethod3("bmc/autodrainage/relay2", "on");
+                if (DrainRelay3)
+                    await iot.InvokeMethod3("bmc/autodrainage/relay3", "on");
+                if (DrainRelay4)
+                    await iot.InvokeMethod3("bmc/autodrainage/relay4", "on");
+                if (DrainRelay5)
+                    await iot.InvokeMethod3("bmc/autodrainage/relay5", "on");
+                if (DrainRelay6)
+                    await iot.InvokeMethod3("bmc/autodrainage/relay6", "on");
+                if (DrainRelay7)
+                    await iot.InvokeMethod3("bmc/autodrainage/relay7", "on");
+                if (DrainRelay8)
+                    await iot.InvokeMethod3("bmc/autodrainage/relay8", "on");
+                if (DrainRelay9)
+                    await iot.InvokeMethod3("bmc/autodrainage/relay9", "on");
+                if (DrainRelay10)
+                    await iot.InvokeMethod3("bmc/autodrainage/relay10", "on");
+                if (DrainRelay11)
+                    await iot.InvokeMethod3("bmc/autodrainage/relay11", "on");
+                if (DrainRelay12)
+                    await iot.InvokeMethod3("bmc/autodrainage/relay12", "on");
+                if (DrainRelay13)
+                    await iot.InvokeMethod3("bmc/autodrainage/relay13", "on");
+                break;
+        }
+    }
+}

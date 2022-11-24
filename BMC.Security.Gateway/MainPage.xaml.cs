@@ -1,17 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
 using GIS = GHIElectronics.UWP.Shields;
 using uPLibrary.Networking.M2Mqtt;
 using uPLibrary.Networking.M2Mqtt.Messages;
@@ -21,13 +11,11 @@ using System.Threading.Tasks;
 //using Microsoft.Azure.Devices.Client;
 using Newtonsoft.Json;
 using BMC.Security.Models;
-using System.Net;
 using System.Threading;
 using BMC.Security.Gateway.Helpers;
 using Windows.UI.Popups;
 using Windows.Networking.Connectivity;
 using System.Net.NetworkInformation;
-using System.Drawing;
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
 namespace BMC.Security.Gateway
