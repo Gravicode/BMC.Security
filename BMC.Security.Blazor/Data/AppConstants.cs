@@ -9,6 +9,7 @@ namespace BMC.Security.Blazor.Data
     {
         public static string BlobConString { get; set; }
         public static string IoTCon { get; set; }
+        public static string RedisCon { get; set; }
         public static List<Account> AdminAccounts { get; set; }
     }
 

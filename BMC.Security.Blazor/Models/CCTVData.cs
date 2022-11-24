@@ -4,6 +4,13 @@ using System;
 
 namespace BMC.Security.Blazor.Models
 {
+
+    public class CCTVImage
+    {
+        public string CctvName { get; set; }
+        public byte[] ImageBytes { get; set; }
+        public DateTime CreatedDate { get; set; }
+    }
     public class CCTVData : TableEntity
     {
         public CCTVData()

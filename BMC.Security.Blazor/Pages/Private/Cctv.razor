@@ -1,31 +1,72 @@
 ﻿@page "/cctv"
 
-    <h1>
-        <strong style="font-size:25px">BMSPACE SECURITY CONTROL 0.1</strong>
-    </h1>
-    <div class="row">
-        <div class="col-5 mr-1" style="padding: 10px 0px; height: 200px; background: #0000ff8a; color: white; margin-bottom: 10px;border-radius: 5px;">
-            <h4 align="center">CCTV 1</h4>
-            <br /><br /><br /><br />
-            <p align="center" style=" border-top: 1px solid; padding-top: 15px;">Area Parkiran</p>
-        </div>
-        <div class="col-5 mr-1" style=" padding: 10px 0px; height: 200px; background: #0000ff8a; color: white; margin-bottom: 25px;border-radius: 5px;">
-            <h4 align="center">CCTV 2</h4>
-            <br /><br /><br /><br />
-            <p align="center" style=" border-top: 1px solid; padding-top: 15px;">Area Lantai 2</p>
-        </div>
-        <div class="col-5 mr-1" style=" padding: 10px 0px; height: 200px; background: #0000ff8a; color: white; margin-bottom: 25px;border-radius: 5px;">
-            <h4 align="center">CCTV 3</h4>
-            <br /><br /><br /><br />
-            <p align="center" style="border-top: 1px solid; padding-top: 15px;">Area Lantai 1</p>
-        </div>
-        <div class="col-5 mr-1" style="padding: 10px 0px; height: 200px; background: #0000ff8a; color: white;  border-radius: 5px;">
-            <h4 align="center">CCTV 4</h4>
-            <br /><br /><br /><br />
-            <p align="center" style="border-top: 1px solid; padding-top: 15px;">Area Belakang</p>
-        </div>
-    </div>
+@inject IJSRuntime jsRuntime
+@using BMC.Security.Blazor.Helpers
+@using BMC.Security.Blazor.Models
+@using BMC.Security.Blazor.Data
+@inject NavigationManager NavMgr
+@inject IToastService toastService
 
+
+@using System.IO
+<h1>CCTV Monitoring</h1>
+
+<p>Gunakan ini untuk monitoring CCTV BMSpace.</p>
+
+
+<div class="row">
+    @{
+        var count = 1;
+    }
+    @if (CCTVUrls != null)
+    {
+
+        @foreach (var cctv in CCTVUrls)
+        {
+
+            <div class="col-lg-4">
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">CCTV @(count++)</h6>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">LIVE</h5>
+                        <img style="width: 320px; height: 240px;object-fit: cover;" src="@(cctv+"&rand="+rnd.Next(100))" alt="foto" />
+                    </div>
+                </div>
+
+            </div>
+        }
+
+    }
+    else
+    {
+        <p class="alert alert-info">Loading</p>
+    }
+
+</div>
 @code {
+    Random rnd = new Random(Environment.TickCount);
+    BlazorTimer timer;
+    string UserName;
+    bool HasLogin;
+    string[] CCTVUrls;
+    protected override async Task OnInitializedAsync()
+    {
+        CCTVUrls = new string[] { NavMgr.BaseUri + "api/cctv/getimage?key=cctv-1", NavMgr.BaseUri + "api/cctv/getimage?key=cctv-2", NavMgr.BaseUri + "api/cctv/getimage?key=cctv-3", NavMgr.BaseUri + "api/cctv/getimage?key=cctv-4" };
+        timer = new BlazorTimer();
+        timer.SetTimer(3000);
+        timer.OnElapsed += () =>
+        {
+            InvokeAsync(async () =>
+            {
 
+                // Update the UI
+                StateHasChanged();
+            });
+        };
+
+
+    }
+    
 }

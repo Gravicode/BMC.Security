@@ -3,152 +3,153 @@
 <h2>
     <b>BMSPACE SECURITY CONTROL 1.0</b>
 </h2>
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th>NO</th>
-            <th>DESCRIPTION</th>
-            <th>ACTION</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>1.</td>
-            <td>Keluarkan suara monster</td>
-            <td><button @onclick="@(() => DoAction("Monster"))" class="btn btn-info">PLAY</button></td>
-        </tr>
-        <tr>
-            <td>2.</td>
-            <td>Keluarkan suara tornado</td>
-            <td><button @onclick="@(() => DoAction("Tornado"))" class="btn btn-info">PLAY</button></td>
-        </tr>
-        <tr>
-            <td>3.</td>
-            <td>Keluarkan suara polisi</td>
-            <td><button @onclick="@(() => DoAction("Police"))" class="btn btn-info">PLAY</button></td>
-        </tr>
-        <tr>
-            <td>4.</td>
-            <td>Keluarkan suara teriakan</td>
-            <td><button @onclick="@(() => DoAction("Scream"))" class="btn btn-info">PLAY</button></td>
-        </tr>
-        <tr>
-            <td>4.</td>
-            <td>LED</td>
-            <td>
-                <button @onclick="@(() => DoAction("LEDON"))" class="btn btn-info">TURN</button>
-                <button @onclick="@(() => DoAction("LEDOFF"))" class="btn btn-danger">OFF</button>
-            </td>
-        </tr>
-        <tr>
-            <td>5.</td>
-            <td>CCTV Watching Status</td>
-            <td>
-                <button @onclick="@(() => DoAction("CCTVStatus", "True"))" class="btn btn-info">TURN</button>
-                <button @onclick="@(() => DoAction("CCTVStatus", "False"))" class="btn btn-danger">OFF</button>
-            </td>
-        </tr>
-        <tr>
-            <td>6.</td>
-            <td>CCTV Watcher Update Time</td>
-            <td>
-                <table class="uk-table">
-                    <tr>
-                        <td>Interval : </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <input type="text" @bind="TxtInterval" />
-                            <asp:TextBox ID="TxtInterval" CssClass="uk-input" TextMode="Number" runat="server"></asp:TextBox>
-                            Detik
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <button @onclick="@(() => DoAction("CCTVUpdateTime"))" class="btn btn-info">Set waktu</button>
-                        </td>
-                    </tr>
-                </table>
-            </td>
-        </tr>
-        <tr>
-            <td>7.</td>
-            <td>Hidroponik</td>
-            <td>
-                <div class="uk-button-group">
-                    <button @onclick="@(() => DoAction("Relay1", "True"))" class="btn btn-info">Relay 1 On</button>
-                    <button @onclick="@(() => DoAction("Relay1", "False"))" class="btn btn-danger">Relay 1 Off</button>
-                </div>
-                <div class="uk-button-group">
-                    <button @onclick="@(() => DoAction("Relay2", "True"))" class="btn btn-info mt-1">Relay 2 On</button>
-                    <button @onclick="@(() => DoAction("Relay2", "False"))" class="btn btn-danger mt-1">Relay 2 Off</button>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td>8.</td>
-            <td>Aquascape</td>
-            <td>
-                <div class="uk-button-group">
-                    <button @onclick="@(() => DoAction("WaterIn", "http://192.168.0.99/PIN0_ON"))" class="btn btn-info">Water In Start</button>
-                    <button @onclick="@(() => DoAction("WaterIn", "http://192.168.0.99/PIN0_OFF"))" class="btn btn-danger">Water In Stop</button>
-                </div>
-                <div class="uk-button-group">
-                    <button @onclick="@(() => DoAction("WaterOut", "http://192.168.0.99/PIN1_ON"))" class="btn btn-info mt-1">Water Out Start</button>
-                    <button @onclick="@(() => DoAction("WaterOut", "http://192.168.0.99/PIN1_OFF"))" class="btn btn-danger mt-1">Water Out Stop</button>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td>9.</td>
-            <td>Aquaponic</td>
-            <td>
-                <div class="uk-button-group">
-                    <button @onclick="@(() => DoAction("RelayAqua1", "True"))" class="btn btn-info">Relay 1 On</button>
-                    <button @onclick="@(() => DoAction("RelayAqua1", "False"))" class="btn btn-danger">Relay 1 Off</button>
-                </div>
-                <div class="uk-button-group">
-                    <button @onclick="@(() => DoAction("RelayAqua2", "True"))" class="btn btn-info mt-1">Relay 2 On</button>
-                    <button @onclick="@(() => DoAction("RelayAqua2", "False"))" class="btn btn-danger mt-1">Relay 2 Off</button>
-                </div>
-            </td>
-        </tr>
-        <!-- Automation Drainage -->
-        <tr>
-            <td>10.</td>
-            <td>Automation Drainage</td>
-            <td>
-                <div>
-                    <input type="checkbox" @bind="DrainRelay1" /> Bucket 1
-                    <input type="checkbox" @bind="DrainRelay2" /> Bucket 2
-                    <input type="checkbox" @bind="DrainRelay3" /> Bucket 3
-                    <input type="checkbox" @bind="DrainRelay4" /> Bucket 4
-                    <input type="checkbox" @bind="DrainRelay5" /> Bucket 5
-                    <input type="checkbox" @bind="DrainRelay6" /> Bucket 6
-                    <input type="checkbox" @bind="DrainRelay7" /> Bucket 7
-                </div>
-                <div>
-                    <input type="checkbox" @bind="DrainRelay8" /> Bucket 8
-                    <input type="checkbox" @bind="DrainRelay9" /> Bucket 9
-                    <input type="checkbox" @bind="DrainRelay10" /> Bucket 10
-                    <input type="checkbox" @bind="DrainRelay11" /> Bucket 11
-                    <input type="checkbox" @bind="DrainRelay12" /> Bucket 12
-                    <input type="checkbox" @bind="DrainRelay13" /> Bucket 13
-                </div>
-                <div></div>
-                <div class="uk-button-group">
-                    <button @onclick="@(() => DoAction("DraineageOn"))" class="btn btn-info">Drain On</button>
-                    <button @onclick="@(() => DoAction("DraineageOff"))" class="btn btn-danger">Drain Off</button>
-                </div>
-                <div class="uk-button-group">
-                    <button @onclick="@(() => DoAction("DraineageFillOn"))" class="btn btn-info mt-1">Fill Water On</button>
-                    <button @onclick="@(() => DoAction("DraineageFillOff"))" class="btn btn-danger mt-1">Fill Water Off</button>
-                </div>
-            </td>
-        </tr>
-    </tbody>
-</table>
-
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>NO</th>
+                <th>DESCRIPTION</th>
+                <th>ACTION</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1.</td>
+                <td>Keluarkan suara monster</td>
+                <td><button @onclick="@(() => DoAction("Monster"))" class="btn btn-info">PLAY</button></td>
+            </tr>
+            <tr>
+                <td>2.</td>
+                <td>Keluarkan suara tornado</td>
+                <td><button @onclick="@(() => DoAction("Tornado"))" class="btn btn-info">PLAY</button></td>
+            </tr>
+            <tr>
+                <td>3.</td>
+                <td>Keluarkan suara polisi</td>
+                <td><button @onclick="@(() => DoAction("Police"))" class="btn btn-info">PLAY</button></td>
+            </tr>
+            <tr>
+                <td>4.</td>
+                <td>Keluarkan suara teriakan</td>
+                <td><button @onclick="@(() => DoAction("Scream"))" class="btn btn-info">PLAY</button></td>
+            </tr>
+            <tr>
+                <td>4.</td>
+                <td>LED</td>
+                <td>
+                    <button @onclick="@(() => DoAction("LEDON"))" class="btn btn-info">TURN</button>
+                    <button @onclick="@(() => DoAction("LEDOFF"))" class="btn btn-danger">OFF</button>
+                </td>
+            </tr>
+            <tr>
+                <td>5.</td>
+                <td>CCTV Watching Status</td>
+                <td>
+                    <button @onclick="@(() => DoAction("CCTVStatus", "True"))" class="btn btn-info">TURN</button>
+                    <button @onclick="@(() => DoAction("CCTVStatus", "False"))" class="btn btn-danger">OFF</button>
+                </td>
+            </tr>
+            <tr>
+                <td>6.</td>
+                <td>CCTV Watcher Update Time</td>
+                <td>
+                    <table class="uk-table">
+                        <tr>
+                            <td>Interval : </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="text" @bind="TxtInterval" />
+                                <asp:TextBox ID="TxtInterval" CssClass="uk-input" TextMode="Number" runat="server"></asp:TextBox>
+                                Detik
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <button @onclick="@(() => DoAction("CCTVUpdateTime"))" class="btn btn-info">Set waktu</button>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td>7.</td>
+                <td>Hidroponik</td>
+                <td>
+                    <div class="uk-button-group">
+                        <button @onclick="@(() => DoAction("Relay1", "True"))" class="btn btn-info">Relay 1 On</button>
+                        <button @onclick="@(() => DoAction("Relay1", "False"))" class="btn btn-danger">Relay 1 Off</button>
+                    </div>
+                    <div class="uk-button-group">
+                        <button @onclick="@(() => DoAction("Relay2", "True"))" class="btn btn-info mt-1">Relay 2 On</button>
+                        <button @onclick="@(() => DoAction("Relay2", "False"))" class="btn btn-danger mt-1">Relay 2 Off</button>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>8.</td>
+                <td>Aquascape</td>
+                <td>
+                    <div class="uk-button-group">
+                        <button @onclick="@(() => DoAction("WaterIn", "http://192.168.0.99/PIN0_ON"))" class="btn btn-info">Water In Start</button>
+                        <button @onclick="@(() => DoAction("WaterIn", "http://192.168.0.99/PIN0_OFF"))" class="btn btn-danger">Water In Stop</button>
+                    </div>
+                    <div class="uk-button-group">
+                        <button @onclick="@(() => DoAction("WaterOut", "http://192.168.0.99/PIN1_ON"))" class="btn btn-info mt-1">Water Out Start</button>
+                        <button @onclick="@(() => DoAction("WaterOut", "http://192.168.0.99/PIN1_OFF"))" class="btn btn-danger mt-1">Water Out Stop</button>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>9.</td>
+                <td>Aquaponic</td>
+                <td>
+                    <div class="uk-button-group">
+                        <button @onclick="@(() => DoAction("RelayAqua1", "True"))" class="btn btn-info">Relay 1 On</button>
+                        <button @onclick="@(() => DoAction("RelayAqua1", "False"))" class="btn btn-danger">Relay 1 Off</button>
+                    </div>
+                    <div class="uk-button-group">
+                        <button @onclick="@(() => DoAction("RelayAqua2", "True"))" class="btn btn-info mt-1">Relay 2 On</button>
+                        <button @onclick="@(() => DoAction("RelayAqua2", "False"))" class="btn btn-danger mt-1">Relay 2 Off</button>
+                    </div>
+                </td>
+            </tr>
+            <!-- Automation Drainage -->
+            <tr>
+                <td>10.</td>
+                <td>Automation Drainage</td>
+                <td>
+                    <div>
+                        <input type="checkbox" @bind="DrainRelay1" /> Bucket 1
+                        <input type="checkbox" @bind="DrainRelay2" /> Bucket 2
+                        <input type="checkbox" @bind="DrainRelay3" /> Bucket 3
+                        <input type="checkbox" @bind="DrainRelay4" /> Bucket 4
+                        <input type="checkbox" @bind="DrainRelay5" /> Bucket 5
+                        <input type="checkbox" @bind="DrainRelay6" /> Bucket 6
+                        <input type="checkbox" @bind="DrainRelay7" /> Bucket 7
+                    </div>
+                    <div>
+                        <input type="checkbox" @bind="DrainRelay8" /> Bucket 8
+                        <input type="checkbox" @bind="DrainRelay9" /> Bucket 9
+                        <input type="checkbox" @bind="DrainRelay10" /> Bucket 10
+                        <input type="checkbox" @bind="DrainRelay11" /> Bucket 11
+                        <input type="checkbox" @bind="DrainRelay12" /> Bucket 12
+                        <input type="checkbox" @bind="DrainRelay13" /> Bucket 13
+                    </div>
+                    <div></div>
+                    <div class="uk-button-group">
+                        <button @onclick="@(() => DoAction("DraineageOn"))" class="btn btn-info">Drain On</button>
+                        <button @onclick="@(() => DoAction("DraineageOff"))" class="btn btn-danger">Drain Off</button>
+                    </div>
+                    <div class="uk-button-group">
+                        <button @onclick="@(() => DoAction("DraineageFillOn"))" class="btn btn-info mt-1">Fill Water On</button>
+                        <button @onclick="@(() => DoAction("DraineageFillOff"))" class="btn btn-danger mt-1">Fill Water Off</button>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
 @code {
 
 

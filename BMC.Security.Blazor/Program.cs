@@ -6,16 +6,25 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Azure.Devices;
+using ServiceStack;
+using ServiceStack.Redis;
 
 var builder = WebApplication.CreateBuilder(args);
-
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAllOrigins",
+        builder => builder.AllowAnyOrigin().AllowAnyHeader().WithMethods("GET, PATCH, DELETE, PUT, POST, OPTIONS"));
+});
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddSingleton<WeatherForecastService>();
 builder.Services.AddTransient<MqttService>();
 builder.Services.AddBlazoredToast();
-
+builder.Services.AddSignalR(hubOptions =>
+{
+    hubOptions.MaximumReceiveMessageSize = 128 * 1024; // 1MB
+});
 var configBuilder = new ConfigurationBuilder()
   .SetBasePath(Directory.GetCurrentDirectory())
   .AddJsonFile("appsettings.json", optional: false);
@@ -25,6 +34,7 @@ AppConstants.IoTCon = Configuration["ConnectionStrings:IoTCon"];
 MqttInfo.MqttHost = Configuration["MqttInfo:MqttHost"];
 MqttInfo.MqttUser = Configuration["MqttInfo:MqttUser"];
 MqttInfo.MqttPass = Configuration["MqttInfo:MqttPass"];
+AppConstants.RedisCon = Configuration["ConnectionStrings:RedisCon"];
 AppConstants.AdminAccounts = Configuration.GetSection("AdminAccount").Get<List<Account>>();
 
 
@@ -48,6 +58,7 @@ builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<HttpContextAccessor>();
 builder.Services.AddHttpClient();
 builder.Services.AddScoped<HttpClient>();
+builder.Services.AddSingleton(new RedisManagerPool(AppConstants.RedisCon));
 
 // BLAZOR COOKIE Auth Code (end)
 // ******
@@ -66,7 +77,12 @@ app.UseHttpsRedirection();
 
 app.UseStaticFiles();
 
-app.UseRouting();
+app.UseRouting(); 
+app.UseCors(x => x
+           .AllowAnyMethod()
+           .AllowAnyHeader()
+           .SetIsOriginAllowed(origin => true) // allow any origin  
+           .AllowCredentials());               // allow credentials 
 
 // ******
 // BLAZOR COOKIE Auth Code (begin)
